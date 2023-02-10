@@ -1,9 +1,12 @@
 ﻿<wpf:ResourceDictionary xml:space="preserve" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:s="clr-namespace:System;assembly=mscorlib" xmlns:ss="urn:shemas-jetbrains-com:settings-storage-xaml" xmlns:wpf="http://schemas.microsoft.com/winfx/2006/xaml/presentation">
 	<s:String x:Key="/Default/Environment/Highlighting/HighlightingSourceSnapshotLocation/@EntryValue">/Users/tombrereton/Library/Caches/JetBrains/Rider2022.3/resharper-host/temp/Rider/vAny/CoverageData/_Shedy.-752775987/Snapshot/snapshot.utdcvr</s:String>
-	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=69027a45_002Dcca8_002D4372_002Db843_002Df2576d42b82a/@EntryIndexedValue">&lt;SessionState ContinuousTestingIsOn="True" ContinuousTestingMode="2" IsActive="True" Name="ExecuteCommand" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;
-  &lt;TestAncestor&gt;
-    &lt;TestId&gt;xUnit::8709B8C1-A35E-47CC-AE8E-F0D0F12DD1F9::net7.0::Shedy.Infrastructure.IntegrationTests.PostgreSqlTest.ExecuteCommand&lt;/TestId&gt;
-    &lt;TestId&gt;xUnit::4B90F3AB-BBFE-4368-8533-16244E1965FB::net7.0::Shedy.Core.UnitTests.Calendar.CalendarShould.GetAvailableTimesForUser&lt;/TestId&gt;
-  &lt;/TestAncestor&gt;
+	
+	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=a4b06c73_002D6364_002D4c69_002D98ec_002D3480a022afd5/@EntryIndexedValue">&lt;SessionState ContinuousTestingIsOn="True" ContinuousTestingMode="1" IsActive="True" Name="Unit" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;
+  &lt;Not&gt;
+    &lt;And&gt;
+      &lt;Project Location="/Users/tombrereton/shedy" Presentation="&amp;lt;test&amp;gt;" /&gt;
+      &lt;Project Location="/Users/tombrereton/shedy/test/Infrastructure.IntegrationTests" Presentation="&amp;lt;test&amp;gt;\&amp;lt;Infrastructure.IntegrationTests&amp;gt;" /&gt;
+    &lt;/And&gt;
+  &lt;/Not&gt;
 &lt;/SessionState&gt;</s:String>
 	</wpf:ResourceDictionary>

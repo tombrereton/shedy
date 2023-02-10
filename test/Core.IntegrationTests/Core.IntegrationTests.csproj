@@ -14,6 +14,7 @@
 
     <ItemGroup>
         <PackageReference Include="AutoFixtureMoq" Version="1.0.0" />
+        <PackageReference Include="FluentAssertions" Version="6.9.0" />
         <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.3.2" />
         <PackageReference Include="structuremap.automocking.moq" Version="4.0.0.315" />
         <PackageReference Include="xunit" Version="2.4.2" />

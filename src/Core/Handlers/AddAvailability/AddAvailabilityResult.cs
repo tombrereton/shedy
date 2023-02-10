@@ -1,6 +1,5 @@
+using Shedy.Core.Calendar;
+
 namespace Shedy.Core.Handlers.AddAvailability;
 
-public class AddAvailabilityResult
-{
-    
-}
+public record AddAvailabilityResult(IEnumerable<Availability> Availability);

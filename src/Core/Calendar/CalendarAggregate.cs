@@ -11,8 +11,13 @@ public class CalendarAggregate
     {
         return new List<Availability>();
     }
+
+    public void AddAvailability(Availability availability)
+    {
+        throw new NotImplementedException();
+    }
 }
 
-public record Availability(DayOfWeek Day, TimeSpan Start, TimeSpan Finish);
+public record Availability(DayOfWeek Day, TimeOnly Start, TimeOnly Finish, TimeZoneInfo TimeZone);
 
 public record TimeSlot(DateTimeOffset From, DateTimeOffset To);

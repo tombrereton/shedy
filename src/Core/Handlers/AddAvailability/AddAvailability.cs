@@ -1,8 +1,6 @@
 using MediatR;
+using Shedy.Core.Calendar;
 
 namespace Shedy.Core.Handlers.AddAvailability;
 
-public class AddAvailability : IRequest<AddAvailabilityResult>, IRequest<AddAvailabilityHandler>
-{
-    
-}
+public record AddAvailability(Availability Availability) : IRequest<AddAvailabilityResult>;

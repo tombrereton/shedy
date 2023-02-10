@@ -1,4 +1,5 @@
 using Alexprof.AutoMoq;
+using FluentAssertions;
 using MediatR;
 using Microsoft.Extensions.DependencyInjection;
 using Shedy.Core.Handlers.AddAvailability;
@@ -17,12 +18,12 @@ public class AddAvailabilityHandlerShould
             .AddCoreServices()
             .BuildServiceProvider();
 
-        var handler = services.GetRequiredService<IRequestHandler<AddAvailability, AddAvailabilityHandler>>();
+        var handler = services.GetRequiredService<IRequestHandler<AddAvailability, AddAvailabilityResult>>();
         
         // act
         var result = await handler.Handle(command, default);
 
         // assert
-        result.Availability;
+        result.Availability.First().Should().Be(command.Availability);
     }
 }
