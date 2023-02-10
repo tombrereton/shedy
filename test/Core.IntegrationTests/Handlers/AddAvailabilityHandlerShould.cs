@@ -1,4 +1,4 @@
-using Alexprof.AutoMoq;
+using AutoFixture.Xunit2;
 using FluentAssertions;
 using MediatR;
 using Microsoft.Extensions.DependencyInjection;
