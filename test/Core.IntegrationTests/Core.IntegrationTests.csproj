@@ -7,14 +7,15 @@
 
         <IsPackable>false</IsPackable>
 
-        <AssemblyName>Shedy.Infrastructure.IntegrationTests</AssemblyName>
+        <AssemblyName>Shedy.Core.IntegrationTests</AssemblyName>
 
-        <RootNamespace>Shedy.Infrastructure.IntegrationTests</RootNamespace>
+        <RootNamespace>Shedy.Core.IntegrationTests</RootNamespace>
     </PropertyGroup>
 
     <ItemGroup>
+        <PackageReference Include="AutoFixtureMoq" Version="1.0.0" />
         <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.3.2" />
-        <PackageReference Include="Testcontainers" Version="2.4.0" />
+        <PackageReference Include="structuremap.automocking.moq" Version="4.0.0.315" />
         <PackageReference Include="xunit" Version="2.4.2" />
         <PackageReference Include="xunit.runner.visualstudio" Version="2.4.5">
             <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
@@ -27,7 +28,7 @@
     </ItemGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\..\src\Infrastructure\Infrastructure.csproj" />
+      <ProjectReference Include="..\..\src\Core\Core.csproj" />
     </ItemGroup>
 
 </Project>

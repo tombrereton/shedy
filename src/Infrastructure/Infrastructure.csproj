@@ -8,4 +8,9 @@
         <RootNamespace>Shedy.Infrastructure</RootNamespace>
     </PropertyGroup>
 
+    <ItemGroup>
+      <PackageReference Include="Npgsql" Version="7.0.1" />
+      <PackageReference Include="xunit.extensibility.core" Version="2.4.2" />
+    </ItemGroup>
+
 </Project>
