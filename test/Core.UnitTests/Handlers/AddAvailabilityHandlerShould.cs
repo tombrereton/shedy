@@ -3,29 +3,13 @@ using FluentAssertions;
 using Moq;
 using Shedy.Core.Calendar;
 using Shedy.Core.Handlers.AddAvailability;
+using Shedy.Core.UnitTests.Builders;
 using Shedy.Core.UnitTests.Mocks;
 
 namespace Shedy.Core.UnitTests.Handlers;
 
 public class AddAvailabilityHandlerShould
 {
-    [Theory]
-    [AutoData]
-    public async Task AddAvailability(AddAvailability command)
-    {
-        // arrange
-        var calendar = MakeCalendarWithEmptyAvailability();
-        var mockRepo = new MockCalendarRepository().MockGetAsync(calendar, command.CalendarId);
-        var handler = new AddAvailabilityHandler(mockRepo.Object);
-
-        // act
-        var result = await handler.Handle(command, default);
-
-        // assert
-        result.Availability.First().Should().Be(command.Availability);
-    }
-
-
     [Theory]
     [AutoData]
     public async Task GetCalendarFromRepository(AddAvailability command)
@@ -45,9 +29,52 @@ public class AddAvailabilityHandlerShould
         ));
     }
 
+    [Theory]
+    [AutoData]
+    public async Task AddAvailabilityToCalendar(AddAvailability command)
+    {
+        // arrange
+        var calendar = new CalendarBuilder()
+            .CreateCalendar()
+            .WithId(command.CalendarId)
+            .WithEmptyOpeningHours()
+            .Build();
+        var mockRepo = new MockCalendarRepository().MockGetAsync(calendar, command.CalendarId);
+        var handler = new AddAvailabilityHandler(mockRepo.Object);
+
+        // act
+        var result = await handler.Handle(command, default);
+
+        // assert
+        result.OpeningHours.First().Should().Be(command.Availability);
+    }
+
+    [Theory]
+    [AutoData]
+    public async Task SaveNewCalendarToRepository(AddAvailability command)
+    {
+        // act
+        var calendar = new CalendarBuilder()
+            .CreateCalendar()
+            .WithId(command.CalendarId)
+            .WithEmptyOpeningHours()
+            .Build();
+        var mockRepo = new MockCalendarRepository().MockGetAsync(calendar, command.CalendarId);
+        var handler = new AddAvailabilityHandler(mockRepo.Object);
+
+        // act
+        var result = await handler.Handle(command, default);
+
+        // assert
+        mockRepo.Verify(x => x.SaveAsync(
+            It.Is<CalendarAggregate>(y => y.Id == command.CalendarId && y.GetOpeningHours().Count == 1),
+            It.IsAny<CancellationToken>()
+        ));
+    }
+
     private static CalendarAggregate MakeCalendarWithEmptyAvailability()
     {
-        var calendar = new CalendarAggregate(new List<Availability>());
+        var calendar = new CalendarAggregate(Guid.NewGuid(), new List<Availability>());
         return calendar;
     }
 }

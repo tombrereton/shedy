@@ -24,6 +24,6 @@ public class AddAvailabilityHandlerShould
         var result = await handler.Handle(command, default);
 
         // assert
-        result.Availability.First().Should().Be(command.Availability);
+        result.OpeningHours.First().Should().Be(command.Availability);
     }
 }

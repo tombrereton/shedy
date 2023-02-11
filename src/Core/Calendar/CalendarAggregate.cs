@@ -2,11 +2,13 @@
 
 public class CalendarAggregate
 {
-    private readonly List<Availability> _availability;
+    public Guid Id { get; private set; }
+    private readonly List<Availability> _openingHours;
 
-    public CalendarAggregate(List<Availability> availability)
+    public CalendarAggregate(Guid id, List<Availability> openingHours)
     {
-        _availability = availability;
+        Id = id;
+        _openingHours = openingHours;
     }
 
     public IEnumerable<TimeSlot> GetAvailableTimes(DateTimeOffset from, DateTimeOffset to, int skip, int take)
@@ -14,14 +16,14 @@ public class CalendarAggregate
         return new List<TimeSlot>();
     }
 
-    public IReadOnlyList<Availability> GetAvailability()
+    public IReadOnlyList<Availability> GetOpeningHours()
     {
-        return _availability;
+        return _openingHours;
     }
 
     public void AddAvailability(Availability availability)
     {
-        _availability.Add(availability);
+        _openingHours.Add(availability);
     }
 }
 
