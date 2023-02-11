@@ -1,9 +1,9 @@
 using AutoFixture.Xunit2;
 using FluentAssertions;
 using Moq;
+using Shedy.Core.Builders;
 using Shedy.Core.Calendar;
 using Shedy.Core.Handlers.AddAvailability;
-using Shedy.Core.UnitTests.Builders;
 using Shedy.Core.UnitTests.Mocks;
 
 namespace Shedy.Core.UnitTests.Handlers;
@@ -15,8 +15,12 @@ public class AddAvailabilityHandlerShould
     public async Task GetCalendarFromRepository(AddAvailability command)
     {
         // act
-        var calendar = MakeCalendarWithEmptyAvailability();
-        var mockRepo = new MockCalendarRepository().MockGetAsync(calendar, command.CalendarId);
+        var calendar = new CalendarBuilder()
+            .CreateCalendar()
+            .WithId(command.CalendarId)
+            .WithEmptyOpeningHours()
+            .Build();
+        var mockRepo = new MockCalendarRepository().StubGetAsync(calendar, command.CalendarId);
         var handler = new AddAvailabilityHandler(mockRepo.Object);
 
         // act
@@ -39,7 +43,7 @@ public class AddAvailabilityHandlerShould
             .WithId(command.CalendarId)
             .WithEmptyOpeningHours()
             .Build();
-        var mockRepo = new MockCalendarRepository().MockGetAsync(calendar, command.CalendarId);
+        var mockRepo = new MockCalendarRepository().StubGetAsync(calendar, command.CalendarId);
         var handler = new AddAvailabilityHandler(mockRepo.Object);
 
         // act
@@ -59,7 +63,7 @@ public class AddAvailabilityHandlerShould
             .WithId(command.CalendarId)
             .WithEmptyOpeningHours()
             .Build();
-        var mockRepo = new MockCalendarRepository().MockGetAsync(calendar, command.CalendarId);
+        var mockRepo = new MockCalendarRepository().StubGetAsync(calendar, command.CalendarId);
         var handler = new AddAvailabilityHandler(mockRepo.Object);
 
         // act
@@ -70,11 +74,5 @@ public class AddAvailabilityHandlerShould
             It.Is<CalendarAggregate>(y => y.Id == command.CalendarId && y.GetOpeningHours().Count == 1),
             It.IsAny<CancellationToken>()
         ));
-    }
-
-    private static CalendarAggregate MakeCalendarWithEmptyAvailability()
-    {
-        var calendar = new CalendarAggregate(Guid.NewGuid(), new List<Availability>());
-        return calendar;
     }
 }

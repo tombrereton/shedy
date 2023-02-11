@@ -1,6 +1,6 @@
 using Shedy.Core.Calendar;
 
-namespace Shedy.Core.UnitTests.Builders;
+namespace Shedy.Core.Builders;
 
 public class CalendarBuilder
 {

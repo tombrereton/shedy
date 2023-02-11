@@ -19,7 +19,6 @@ public class AddAvailabilityHandler : IRequestHandler<AddAvailability, AddAvaila
         calendar.AddAvailability(request.Availability);
         await _repository.SaveAsync(calendar, cancellationToken);
         
-        var result = new AddAvailabilityResult(calendar.GetOpeningHours());
-        return await Task.FromResult(result);
+        return new AddAvailabilityResult(calendar.GetOpeningHours());
     }
 }
