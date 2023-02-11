@@ -6,12 +6,13 @@ namespace Shedy.Core.UnitTests.Mocks;
 
 public class MockCalendarRepository : Mock<ICalendarRepository>
 {
-    public MockCalendarRepository MockSaveAsync(CalendarAggregate output, Guid id)
+    public MockCalendarRepository MockGetAsync(CalendarAggregate output, Guid id)
     {
         Setup(x => x.GetAsync(
-            It.IsAny<Guid>(),
+            It.Is<Guid>(y => y == id),
             It.IsAny<CancellationToken>()
-        )).Returns<CalendarAggregate>(_ => Task.FromResult(output));
+        )).ReturnsAsync(output);
+
         return this;
     }
 }

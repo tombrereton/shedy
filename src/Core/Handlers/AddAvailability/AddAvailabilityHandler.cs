@@ -15,12 +15,10 @@ public class AddAvailabilityHandler : IRequestHandler<AddAvailability, AddAvaila
 
     public async Task<AddAvailabilityResult> Handle(AddAvailability request, CancellationToken cancellationToken)
     {
-        // var calendar = new CalendarAggregate();
-        // calendar.AddAvailability(request.Availability);
-
-        var avails = new List<Availability>();
-        avails.Add(request.Availability);
-        var result = new AddAvailabilityResult(avails);
+        var calendar = await _repository.GetAsync(request.CalendarId, cancellationToken);
+        calendar.AddAvailability(request.Availability);
+        
+        var result = new AddAvailabilityResult(calendar.GetAvailability());
         return await Task.FromResult(result);
     }
 }

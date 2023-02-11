@@ -2,19 +2,26 @@
 
 public class CalendarAggregate
 {
+    private readonly List<Availability> _availability;
+
+    public CalendarAggregate(List<Availability> availability)
+    {
+        _availability = availability;
+    }
+
     public IEnumerable<TimeSlot> GetAvailableTimes(DateTimeOffset from, DateTimeOffset to, int skip, int take)
     {
         return new List<TimeSlot>();
     }
 
-    public IEnumerable<Availability> GetAvailability()
+    public IReadOnlyList<Availability> GetAvailability()
     {
-        return new List<Availability>();
+        return _availability;
     }
 
     public void AddAvailability(Availability availability)
     {
-        throw new NotImplementedException();
+        _availability.Add(availability);
     }
 }
 

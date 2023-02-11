@@ -9,7 +9,7 @@ public class CalendarShould
     public void GetAvailableTimesForUser()
     {
         // arrange 
-        var calendar = new CalendarAggregate();
+        var calendar = new CalendarAggregate(new List<Availability>());
         var from = DateTimeOffset.Now;
         var to = DateTimeOffset.Now.AddDays(7);
         var skip = 0;
