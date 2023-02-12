@@ -17,7 +17,7 @@ public class AddAvailabilityHandlerShould
         // act
         var calendar = new CalendarBuilder()
             .CreateCalendar()
-            .WithId(command.CalendarId)
+            .WithCalendarId(command.CalendarId)
             .WithEmptyOpeningHours()
             .Build();
         var mockRepo = new MockCalendarRepository().StubGetAsync(calendar, command.CalendarId);
@@ -40,7 +40,7 @@ public class AddAvailabilityHandlerShould
         // arrange
         var calendar = new CalendarBuilder()
             .CreateCalendar()
-            .WithId(command.CalendarId)
+            .WithCalendarId(command.CalendarId)
             .WithEmptyOpeningHours()
             .Build();
         var mockRepo = new MockCalendarRepository().StubGetAsync(calendar, command.CalendarId);
@@ -60,7 +60,7 @@ public class AddAvailabilityHandlerShould
         // act
         var calendar = new CalendarBuilder()
             .CreateCalendar()
-            .WithId(command.CalendarId)
+            .WithCalendarId(command.CalendarId)
             .WithEmptyOpeningHours()
             .Build();
         var mockRepo = new MockCalendarRepository().StubGetAsync(calendar, command.CalendarId);

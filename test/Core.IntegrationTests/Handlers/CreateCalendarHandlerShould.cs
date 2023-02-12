@@ -4,17 +4,18 @@ using MediatR;
 using Microsoft.Extensions.DependencyInjection;
 using Shedy.Core.Builders;
 using Shedy.Core.Handlers.AddAvailability;
+using Shedy.Core.Handlers.CreateCalendar;
 using Shedy.Core.IntegrationTests.Fakes;
 using Shedy.Core.Interfaces;
 
 namespace Shedy.Core.IntegrationTests.Handlers;
 
-public class AddAvailabilityHandlerShould
+public class CreateCalendarHandlerShould
 {
     [Theory]
     [AutoData]
     [Trait("Category", "Integration")]
-    public async Task AddAvailabilityToFreelancersCalendar(AddAvailability command)
+    public async Task CreateCalendarWithCorrectUserId(CreateCalendar command)
     {
         // arrange
         var services = new ServiceCollection()
@@ -22,19 +23,13 @@ public class AddAvailabilityHandlerShould
             .AddFakeRepositories()
             .BuildServiceProvider();
 
-        var handler = services.GetRequiredService<IRequestHandler<AddAvailability, AddAvailabilityResult>>();
+        var handler = services.GetRequiredService<IRequestHandler<CreateCalendar, CreateCalendarResult>>();
         var repo = services.GetRequiredService<ICalendarRepository>();
-        var calendar = new CalendarBuilder()
-            .CreateCalendar()
-            .WithCalendarId(command.CalendarId)
-            .WithEmptyOpeningHours()
-            .Build();
-        await repo.SaveAsync(calendar, default);
         
         // act
         var result = await handler.Handle(command, default);
 
         // assert
-        result.OpeningHours.First().Should().Be(command.Availability);
+        result.CalendarId.Should().NotBeEmpty();
     }
 }

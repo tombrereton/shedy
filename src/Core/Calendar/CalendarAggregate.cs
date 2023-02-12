@@ -2,12 +2,14 @@
 
 public class CalendarAggregate
 {
-    public Guid Id { get; private set; }
+    public Guid Id { get; }
+    public Guid UserId { get; }
     private readonly List<Availability> _openingHours;
 
-    public CalendarAggregate(Guid id, List<Availability> openingHours)
+    public CalendarAggregate(Guid id, Guid userId, List<Availability> openingHours)
     {
         Id = id;
+        UserId = userId;
         _openingHours = openingHours;
     }
 

@@ -6,7 +6,7 @@ namespace Shedy.Core.IntegrationTests.Fakes;
 
 public class FakeCalendarRepository : ICalendarRepository
 {
-    private List<CalendarAggregate> _calendarAggregates = new();
+    private readonly List<CalendarAggregate> _calendarAggregates = new();
 
     public async Task<CalendarAggregate> GetAsync(Guid id, CancellationToken cancellationToken)
     {
