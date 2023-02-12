@@ -14,7 +14,6 @@ public class CreateCalendarHandlerShould
 {
     [Theory]
     [AutoData]
-    [Trait("Category", "Integration")]
     public async Task CreateCalendarWithCorrectUserId(CreateCalendar command)
     {
         // arrange
@@ -31,5 +30,9 @@ public class CreateCalendarHandlerShould
 
         // assert
         result.CalendarId.Should().NotBeEmpty();
+        
+        var calendar = await repo.GetAsync(result.CalendarId, default);
+        calendar.Should().NotBeNull();
+        calendar.Id.Should().Be(result.CalendarId);
     }
 }

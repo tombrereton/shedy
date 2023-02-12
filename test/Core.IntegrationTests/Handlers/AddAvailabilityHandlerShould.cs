@@ -13,7 +13,6 @@ public class AddAvailabilityHandlerShould
 {
     [Theory]
     [AutoData]
-    [Trait("Category", "Integration")]
     public async Task AddAvailabilityToFreelancersCalendar(AddAvailability command)
     {
         // arrange
