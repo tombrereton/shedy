@@ -1,15 +1,14 @@
+using Shedy.Api;
 using Shedy.Api.Middleware;
 using Shedy.Core;
 using Shedy.Infrastructure;
 
 var builder = WebApplication.CreateBuilder(args);
 
-builder.Services.AddControllers();
-builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
-builder.Services.AddCoreServices();
-builder.Services.AddInfrastructure();
-builder.Services.AddTransient<ShedyExceptionMiddleware>();
+builder.Services
+    .AddCore()
+    .AddInfrastructure()
+    .AddApi();
 
 var app = builder.Build();
 

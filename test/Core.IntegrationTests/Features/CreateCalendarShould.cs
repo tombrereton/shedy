@@ -16,7 +16,7 @@ public class CreateCalendarShould
     public CreateCalendarShould()
     {
         _services = new ServiceCollection()
-            .AddCoreServices()
+            .AddCore()
             .AddFakeRepositories()
             .BuildServiceProvider();
     }

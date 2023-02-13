@@ -18,7 +18,7 @@ public class AddAvailabilityShould
     public AddAvailabilityShould()
     {
         _services = new ServiceCollection()
-            .AddCoreServices()
+            .AddCore()
             .AddFakeRepositories()
             .BuildServiceProvider();
     }

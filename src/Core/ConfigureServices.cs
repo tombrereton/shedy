@@ -11,7 +11,7 @@ namespace Shedy.Core;
 public static class ConfigureServices
 {
 
-    public static IServiceCollection AddCoreServices(this IServiceCollection services)
+    public static IServiceCollection AddCore(this IServiceCollection services)
     {
         services.AddMediatR(typeof(AddAvailabilityHandler).GetTypeInfo().Assembly);
         services.AddValidatorsFromAssemblyContaining<CreateCalendar>(ServiceLifetime.Transient);
