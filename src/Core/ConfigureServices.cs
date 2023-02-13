@@ -15,6 +15,7 @@ public static class ConfigureServices
     {
         services.AddMediatR(typeof(AddAvailabilityHandler).GetTypeInfo().Assembly);
         services.AddValidatorsFromAssemblyContaining<CreateCalendar>(ServiceLifetime.Transient);
+        services.AddTransient(typeof(IPipelineBehavior<,>), typeof(LoggingBehavior<,>));
         services.AddTransient(typeof(IPipelineBehavior<,>), typeof(ValidationBehavior<,>));
         
         return services;
