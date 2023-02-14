@@ -71,7 +71,7 @@ public class AddAvailabilityHandlerShould
 
         // assert
         mockRepo.Verify(x => x.SaveAsync(
-            It.Is<CalendarAggregate>(y => y.Id == command.CalendarId && y.GetOpeningHours().Count == 1),
+            It.Is<CalendarAggregate>(y => y.Id == command.CalendarId && y.OpeningHours.Count == 1),
             It.IsAny<CancellationToken>()
         ));
     }

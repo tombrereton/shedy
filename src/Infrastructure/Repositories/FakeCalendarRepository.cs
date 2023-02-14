@@ -10,7 +10,7 @@ public class FakeCalendarRepository : ICalendarRepository
     public async Task<CalendarAggregate> GetAsync(Guid id, CancellationToken cancellationToken)
     {
         var calendar = _calendarAggregates.FirstOrDefault(x => x.Id == id);
-        return await Task.FromResult(calendar);
+        return await Task.FromResult(calendar) ?? throw new InvalidOperationException();
     }
 
     public Task SaveAsync(CalendarAggregate calendar, CancellationToken cancellationToken)

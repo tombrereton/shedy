@@ -60,7 +60,7 @@ internal sealed class ShedyExceptionMiddleware : IMiddleware
 
     private static IEnumerable<ValidationFailure>? GetErrors(Exception exception)
     {
-        IEnumerable<ValidationFailure> errors = null;
+        IEnumerable<ValidationFailure>? errors = null;
 
         if (exception is ValidationException validationException)
         {

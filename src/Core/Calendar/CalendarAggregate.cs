@@ -2,33 +2,24 @@
 
 public class CalendarAggregate
 {
-    public Guid Id { get; }
-    public Guid UserId { get; }
-    private readonly List<Availability> _openingHours;
+    public Guid Id { get; init; }
+    public Guid UserId { get; init; }
 
-    public CalendarAggregate(Guid id, Guid userId, List<Availability> openingHours)
-    {
-        Id = id;
-        UserId = userId;
-        _openingHours = openingHours;
-    }
+    public IReadOnlyList<Availability> OpeningHours { get; init; }
+    // private readonly List<Availability> _openingHours;
 
-    public IEnumerable<TimeSlot> GetAvailableTimes(DateTimeOffset from, DateTimeOffset to, int skip, int take)
-    {
-        return new List<TimeSlot>();
-    }
-
-    public IReadOnlyList<Availability> GetOpeningHours()
-    {
-        return _openingHours;
-    }
+    // public CalendarAggregate(Guid id, Guid userId, List<Availability> openingHours)
+    // {
+    //     Id = id;
+    //     UserId = userId;
+    //     // _openingHours = openingHours;
+    //     OpeningHours = openingHours.AsReadOnly();
+    // }
 
     public void AddAvailability(Availability availability)
     {
-        _openingHours.Add(availability);
+        var openingHours = OpeningHours.ToList();
+        openingHours.Add(availability);
+        // OpeningHours = openingHours.AsReadOnly();
     }
 }
-
-public record Availability(DayOfWeek Day, TimeOnly Start, TimeOnly Finish, TimeZoneInfo TimeZone);
-
-public record TimeSlot(DateTimeOffset From, DateTimeOffset To);
