@@ -11,7 +11,7 @@
 &lt;/SessionState&gt;</s:String>
 	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=da11882b_002D7503_002D4674_002D97d9_002Dccdfc60e5981/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" IsActive="True" Name="ExecuteCommand" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;
   &lt;TestAncestor&gt;
-    &lt;TestId&gt;xUnit::8709B8C1-A35E-47CC-AE8E-F0D0F12DD1F9::net7.0::Shedy.Infrastructure.IntegrationTests.PostgreSqlTest&lt;/TestId&gt;
+    &lt;TestId&gt;xUnit::8709B8C1-A35E-47CC-AE8E-F0D0F12DD1F9::net7.0::Shedy.Infrastructure.IntegrationTests.CalendarRepository.SaveCalendar&lt;/TestId&gt;
   &lt;/TestAncestor&gt;
 &lt;/SessionState&gt;</s:String>
 	</wpf:ResourceDictionary>
