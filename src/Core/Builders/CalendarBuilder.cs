@@ -62,12 +62,12 @@ public class CalendarBuilder
     {
         if (_openingHours is null) throw new ArgumentException("Opening Hours cannot be null");
 
-        // return new CalendarAggregate(_calendarId, _userId, _openingHours);
-        return new CalendarAggregate
-        {
-            Id = _calendarId,
-            UserId = _userId,
-            OpeningHours = _openingHours
-        };
+        return new CalendarAggregate(_calendarId, _userId, _openingHours);
+        // return new CalendarAggregate
+        // {
+        //     Id = _calendarId,
+        //     UserId = _userId,
+        //     OpeningHours = _openingHours
+        // };
     }
 }

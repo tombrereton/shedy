@@ -1,25 +1,27 @@
-﻿namespace Shedy.Core.Calendar;
+﻿using Shedy.Core.Handlers.CreateCalendar;
+
+namespace Shedy.Core.Calendar;
 
 public class CalendarAggregate
 {
-    public Guid Id { get; init; }
-    public Guid UserId { get; init; }
+    public Guid Id { get; }
+    public Guid UserId { get; }
 
-    public IReadOnlyList<Availability> OpeningHours { get; init; }
-    // private readonly List<Availability> _openingHours;
+    public IReadOnlyList<Availability> OpeningHours => _availability.AsReadOnly();
+    private readonly List<Availability> _availability =  new();
 
-    // public CalendarAggregate(Guid id, Guid userId, List<Availability> openingHours)
-    // {
-    //     Id = id;
-    //     UserId = userId;
-    //     // _openingHours = openingHours;
-    //     OpeningHours = openingHours.AsReadOnly();
-    // }
+    public CalendarAggregate(Guid id, Guid userId, List<Availability> availability)
+    {
+        Id = id;
+        UserId = userId;
+        _availability = availability;
+    }
 
     public void AddAvailability(Availability availability)
     {
-        var openingHours = OpeningHours.ToList();
-        openingHours.Add(availability);
-        // OpeningHours = openingHours.AsReadOnly();
+        _availability.Add(availability);
     }
+    
+    // Keep empty constructor for EF Core
+    private CalendarAggregate(){}
 }

@@ -7,21 +7,23 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Shedy.Core.Builders;
 using Shedy.Core.Interfaces;
-using Shedy.Infrastructure.Database;
+using Shedy.Infrastructure.Persistance;
 
 #pragma warning disable CS0618
 
 namespace Shedy.Infrastructure.IntegrationTests;
 
-public sealed class CalendarRepository : IAsyncLifetime
+public sealed class CalendarRepositoryShould : IAsyncLifetime
 {
+    private static readonly PostgreSqlTestcontainerConfiguration ContainerConfig = new()
+    {
+        Database = "test",
+        Username = "shedy",
+        Password = "postgres",
+    };
+    
     private readonly TestcontainerDatabase _postgresqlContainer = new ContainerBuilder<PostgreSqlTestcontainer>()
-        .WithDatabase(new PostgreSqlTestcontainerConfiguration
-        {
-            Database = "test",
-            Username = "shedy",
-            Password = "postgres",
-        })
+        .WithDatabase(ContainerConfig)
         .Build();
 
     private ServiceProvider _services = null!;
@@ -30,13 +32,14 @@ public sealed class CalendarRepository : IAsyncLifetime
     public async Task GetCalendar()
     {
         // arrange
-        var db = _services.GetRequiredService<ShedyDbContext>();
         var calendar = new CalendarBuilder()
             .CreateCalendar()
             .WithNewCalendarId()
             .WithUserId(Guid.NewGuid())
             .WithDefaultOpeningHours()
             .Build();
+        
+        var db = _services.GetRequiredService<ShedyDbContext>();
         await db.Calendars.AddAsync(calendar);
         await db.SaveChangesAsync();
 
@@ -54,14 +57,14 @@ public sealed class CalendarRepository : IAsyncLifetime
     public async Task SaveCalendar()
     {
         // arrange
-        var db = _services.GetRequiredService<ShedyDbContext>();
         var calendar = new CalendarBuilder()
             .CreateCalendar()
             .WithNewCalendarId()
             .WithUserId(Guid.NewGuid())
             .WithDefaultOpeningHours()
             .Build();
-
+        
+        var db = _services.GetRequiredService<ShedyDbContext>();
         var repo = _services.GetRequiredService<ICalendarRepository>();
 
         // act

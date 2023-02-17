@@ -1,17 +1,29 @@
 ﻿<wpf:ResourceDictionary xml:space="preserve" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:s="clr-namespace:System;assembly=mscorlib" xmlns:ss="urn:shemas-jetbrains-com:settings-storage-xaml" xmlns:wpf="http://schemas.microsoft.com/winfx/2006/xaml/presentation">
 	<s:String x:Key="/Default/Environment/Highlighting/HighlightingSourceSnapshotLocation/@EntryValue">/Users/tombrereton/Library/Caches/JetBrains/Rider2022.3/resharper-host/temp/Rider/vAny/CoverageData/_Shedy.-752775987/Snapshot/snapshot.utdcvr</s:String>
 	
-	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=a4b06c73_002D6364_002D4c69_002D98ec_002D3480a022afd5/@EntryIndexedValue">&lt;SessionState ContinuousTestingIsOn="True" ContinuousTestingMode="1" Name="Unit" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;
-  &lt;Not&gt;
-    &lt;And&gt;
-      &lt;Project Location="/Users/tombrereton/shedy" Presentation="&amp;lt;test&amp;gt;" /&gt;
-      &lt;Project Location="/Users/tombrereton/shedy/test/Infrastructure.IntegrationTests" Presentation="&amp;lt;test&amp;gt;\&amp;lt;Infrastructure.IntegrationTests&amp;gt;" /&gt;
-    &lt;/And&gt;
-  &lt;/Not&gt;
+	
+	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=a4b06c73_002D6364_002D4c69_002D98ec_002D3480a022afd5/@EntryIndexedValue">&lt;SessionState ContinuousTestingIsOn="True" ContinuousTestingMode="1" IsActive="True" Name="Unit" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;
+  &lt;Or&gt;
+    &lt;Not&gt;
+      &lt;And&gt;
+        &lt;Project Location="/Users/tombrereton/shedy" Presentation="&amp;lt;test&amp;gt;" /&gt;
+        &lt;Project Location="/Users/tombrereton/shedy/test/Infrastructure.IntegrationTests" Presentation="&amp;lt;test&amp;gt;\&amp;lt;Infrastructure.IntegrationTests&amp;gt;" /&gt;
+      &lt;/And&gt;
+    &lt;/Not&gt;
+    &lt;Project Location="/Users/tombrereton/shedy/test/Infrastructure.IntegrationTests" Presentation="&amp;lt;test&amp;gt;\&amp;lt;Infrastructure.IntegrationTests&amp;gt;" /&gt;
+  &lt;/Or&gt;
 &lt;/SessionState&gt;</s:String>
-	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=da11882b_002D7503_002D4674_002D97d9_002Dccdfc60e5981/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" IsActive="True" Name="ExecuteCommand" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;
+	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=ca59d714_002Dddcc_002D4a5e_002Dbc80_002D5e01056c9f68/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" Name="All tests from &amp;lt;test&amp;gt;\&amp;lt;Infrastructure.IntegrationTests&amp;gt;" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;
+  &lt;Project Location="/Users/tombrereton/shedy/test/Infrastructure.IntegrationTests" Presentation="&amp;lt;test&amp;gt;\&amp;lt;Infrastructure.IntegrationTests&amp;gt;" /&gt;
+&lt;/SessionState&gt;</s:String>
+	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=d45ec825_002D704b_002D433b_002D9a4c_002Dae31cf223383/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" Name="All tests from &amp;lt;test&amp;gt;\&amp;lt;Infrastructure.IntegrationTests&amp;gt; #2" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;
+  &lt;Project Location="/Users/tombrereton/shedy/test/Infrastructure.IntegrationTests" Presentation="&amp;lt;test&amp;gt;\&amp;lt;Infrastructure.IntegrationTests&amp;gt;" /&gt;
+&lt;/SessionState&gt;</s:String>
+	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=e52d854a_002Dd552_002D4545_002D9c3d_002D926871dc0a42/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" Name="DeleteCalendar" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;
   &lt;TestAncestor&gt;
-    &lt;TestId&gt;xUnit::8709B8C1-A35E-47CC-AE8E-F0D0F12DD1F9::net7.0::Shedy.Infrastructure.IntegrationTests.CalendarRepository.SaveCalendar&lt;/TestId&gt;
+    &lt;TestId&gt;xUnit::8709B8C1-A35E-47CC-AE8E-F0D0F12DD1F9::net7.0::Shedy.Infrastructure.IntegrationTests.Repositories.CalendarRepositoryShould.DeleteCalendar&lt;/TestId&gt;
+    &lt;TestId&gt;xUnit::4B90F3AB-BBFE-4368-8533-16244E1965FB::net7.0::Shedy.Core.UnitTests.Handlers.AddAvailabilityHandlerShould&lt;/TestId&gt;
   &lt;/TestAncestor&gt;
 &lt;/SessionState&gt;</s:String>
+	
 	</wpf:ResourceDictionary>
