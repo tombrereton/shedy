@@ -2,7 +2,7 @@ using FluentValidation;
 
 namespace Shedy.Core.Handlers.UpdateAvailability;
 
-public class UpdateAvailabilityValidator : AbstractValidator<Handlers.AddAvailability.AddAvailability>
+public class UpdateAvailabilityValidator : AbstractValidator<UpdateAvailability>
 {
     public UpdateAvailabilityValidator()
     {

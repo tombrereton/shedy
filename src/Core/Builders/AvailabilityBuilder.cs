@@ -15,26 +15,6 @@ public class AvailabilityBuilder
         return new AvailabilityBuilder();
     }
 
-    // public AvailabilityBuilder  WithDefaultAvailabilityList()
-    // {
-    //     var days = new List<DayOfWeek>()
-    //         { DayOfWeek.Monday, DayOfWeek.Tuesday, DayOfWeek.Wednesday, DayOfWeek.Thursday, DayOfWeek.Friday };
-    //
-    //     _openingHours = new List<Availability>();
-    //     foreach (var day in days)
-    //     {
-    //         var availability = new Availability(
-    //             day,
-    //             new TimeOnly(9, 0),
-    //             new TimeOnly(17, 0),
-    //             TimeZoneInfo.Local // change to users local
-    //         );
-    //         _openingHours.Add(availability);
-    //     }
-    //
-    //     return this;
-    // }
-
     public AvailabilityBuilder WithDay(DayOfWeek dayOfWeek)
     {
         _dayOfWeek = dayOfWeek;

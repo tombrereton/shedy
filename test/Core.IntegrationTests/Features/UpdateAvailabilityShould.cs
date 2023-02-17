@@ -49,29 +49,37 @@ public class UpdateAvailabilityShould
         var result = await mediator.Send(command, default);
 
         // assert
-        result.OpeningHours.First().Should().Be(command.Availability);
+        result.OpeningHours.Should().BeEquivalentTo(command.Availability);
     }
 
-    // [Theory]
-    // [AutoData]
-    // public async Task ValidateAddAvailability(Availability availability)
-    // {
-    //     // arrange
-    //     var command = new AddAvailability(Guid.Empty, availability);
-    //     var mediator = _services.GetRequiredService<IMediator>();
-    //     var repo = _services.GetRequiredService<ICalendarRepository>();
-    //     var calendar = new CalendarBuilder()
-    //         .CreateCalendar()
-    //         .WithCalendarId(command.CalendarId)
-    //         .WithEmptyOpeningHours()
-    //         .Build();
-    //     await repo.SaveAsync(calendar, default);
-    //
-    //     // act
-    //     Func<Task> act = async () => { await mediator.Send(command, default); };
-    //
-    //     // assert
-    //     await act.Should().ThrowAsync<ValidationException>()
-    //         .WithMessage("*CalendarId*not*empty*");
-    // }
+    [Theory]
+    [AutoData]
+    public async Task ValidateEmptyCalendarId(IEnumerable<Availability> availability)
+    {
+        // arrange
+        var command = new UpdateAvailability(Guid.Empty, availability);
+        var mediator = _services.GetRequiredService<IMediator>();
+
+        // act
+        Func<Task> act = async () => { await mediator.Send(command, default); };
+
+        // assert
+        await act.Should().ThrowAsync<ValidationException>()
+            .WithMessage("*CalendarId*not*empty*");
+    }
+    
+    [Fact]
+    public async Task ValidateNullAvailability()
+    {
+        // arrange
+        var command = new UpdateAvailability(Guid.NewGuid(), null!);
+        var mediator = _services.GetRequiredService<IMediator>();
+
+        // act
+        Func<Task> act = async () => { await mediator.Send(command, default); };
+
+        // assert
+        await act.Should().ThrowAsync<ValidationException>()
+            .WithMessage("*Availability*not*empty*");
+    }
 }

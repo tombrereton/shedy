@@ -15,7 +15,7 @@ public class AddAvailabilityHandler : IRequestHandler<UpdateAvailability, Update
     public async Task<UpdateAvailabilityResult> Handle(UpdateAvailability request, CancellationToken cancellationToken)
     {
         var calendar = await _repository.GetAsync(request.CalendarId, cancellationToken);
-        // calendar.AddAvailability(request.Availability);
+        calendar.UpdateAvailability(request.Availability);
         await _repository.SaveAsync(calendar, cancellationToken);
         
         return new UpdateAvailabilityResult(calendar.OpeningHours);

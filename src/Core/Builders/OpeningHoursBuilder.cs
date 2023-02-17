@@ -56,7 +56,8 @@ public class OpeningHoursBuilder
             var availability = new AvailabilityBuilder()
                 .CreateAvailability()
                 .WithDay(day)
-                .WithDefaultStartAndFinishTimes()
+                .WithStartTime(_startTime)
+                .WithFinishTime(_finishTime)
                 .WithTimeZone(_timeZone)
                 .Build();
             openingHours.Add(availability);

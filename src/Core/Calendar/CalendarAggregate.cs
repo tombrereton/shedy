@@ -8,7 +8,7 @@ public class CalendarAggregate
     public Guid UserId { get; }
 
     public IReadOnlyList<Availability> OpeningHours => _availability.AsReadOnly();
-    private readonly List<Availability> _availability =  new();
+    private readonly List<Availability> _availability = new();
 
     public CalendarAggregate(Guid id, Guid userId, List<Availability> availability)
     {
@@ -21,7 +21,15 @@ public class CalendarAggregate
     {
         _availability.Add(availability);
     }
-    
+
+    public void UpdateAvailability(IEnumerable<Availability> newAvailability)
+    {
+        _availability.Clear();
+        _availability.AddRange(newAvailability);
+    }
+
     // Keep empty constructor for EF Core
-    private CalendarAggregate(){}
+    private CalendarAggregate()
+    {
+    }
 }
