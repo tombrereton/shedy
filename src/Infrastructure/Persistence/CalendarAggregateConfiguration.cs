@@ -2,7 +2,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using Shedy.Core.Calendar;
 
-namespace Shedy.Infrastructure.Database;
+namespace Shedy.Infrastructure.Persistence;
 
 public class CalendarAggregateConfiguration : IEntityTypeConfiguration<CalendarAggregate>
 {
@@ -42,10 +42,5 @@ public class CalendarAggregateConfiguration : IEntityTypeConfiguration<CalendarA
                     )
                     .IsRequired();
             });
-
-
-        // builder
-        //     .Metadata.FindNavigation(nameof(CalendarAggregate.OpeningHours))!
-        //     .SetPropertyAccessMode(PropertyAccessMode.Field);
     }
 }

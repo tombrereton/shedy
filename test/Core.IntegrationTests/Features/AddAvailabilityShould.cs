@@ -33,6 +33,7 @@ public class AddAvailabilityShould
         var calendar = new CalendarBuilder()
             .CreateCalendar()
             .WithCalendarId(command.CalendarId)
+            .WithUserId(Guid.NewGuid())
             .WithEmptyOpeningHours()
             .Build();
         await repo.SaveAsync(calendar, default);
@@ -51,13 +52,6 @@ public class AddAvailabilityShould
         // arrange
         var command = new AddAvailability(Guid.Empty, availability);
         var mediator = _services.GetRequiredService<IMediator>();
-        var repo = _services.GetRequiredService<ICalendarRepository>();
-        var calendar = new CalendarBuilder()
-            .CreateCalendar()
-            .WithCalendarId(command.CalendarId)
-            .WithEmptyOpeningHours()
-            .Build();
-        await repo.SaveAsync(calendar, default);
 
         // act
         Func<Task> act = async () => { await mediator.Send(command, default); };

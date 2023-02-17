@@ -4,9 +4,9 @@ using Shedy.Core.Interfaces;
 
 namespace Shedy.Core.UnitTests.Mocks;
 
-public class MockCalendarRepositoryBuilder : Mock<ICalendarRepository>
+public class MockCalendarRepository : Mock<ICalendarRepository>
 {
-    public MockCalendarRepositoryBuilder WithStubbedGetAsync(CalendarAggregate output, Guid id)
+    public MockCalendarRepository WithStubbedGetAsync(CalendarAggregate output, Guid id)
     {
         Setup(x => x.GetAsync(
             It.Is<Guid>(y => y == id),

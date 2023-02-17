@@ -1,5 +1,4 @@
 using MediatR;
-using Shedy.Core.Calendar;
 using Shedy.Core.Interfaces;
 
 namespace Shedy.Core.Handlers.AddAvailability;

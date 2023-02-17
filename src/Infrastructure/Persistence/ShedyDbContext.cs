@@ -1,7 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using Shedy.Core.Calendar;
 
-namespace Shedy.Infrastructure.Database;
+namespace Shedy.Infrastructure.Persistance;
 
 public class ShedyDbContext : DbContext
 {

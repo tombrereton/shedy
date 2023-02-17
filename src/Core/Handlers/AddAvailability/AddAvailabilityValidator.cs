@@ -1,5 +1,4 @@
 using FluentValidation;
-using Shedy.Core.Calendar;
 
 namespace Shedy.Core.Handlers.AddAvailability;
 

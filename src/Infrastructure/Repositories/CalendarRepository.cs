@@ -2,7 +2,7 @@ using Microsoft.EntityFrameworkCore;
 using Shedy.Core.Builders;
 using Shedy.Core.Calendar;
 using Shedy.Core.Interfaces;
-using Shedy.Infrastructure.Database;
+using Shedy.Infrastructure.Persistance;
 
 namespace Shedy.Infrastructure.Repositories;
 
@@ -17,12 +17,13 @@ public class CalendarRepository : ICalendarRepository
 
     public async Task<CalendarAggregate> GetAsync(Guid id, CancellationToken cancellationToken)
     {
-        var calendar =  await _dbContext.Calendars.FirstOrDefaultAsync(x => x.Id == id, cancellationToken);
+        var calendar = await _dbContext.Calendars.FirstOrDefaultAsync(x => x.Id == id, cancellationToken);
         if (calendar is not null)
         {
             return calendar;
         }
 
+        // change this to null
         return new CalendarBuilder()
             .CreateCalendar()
             .WithNewCalendarId()

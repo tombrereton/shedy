@@ -1,3 +1,4 @@
+using Ardalis.GuardClauses;
 using Shedy.Core.Calendar;
 
 namespace Shedy.Core.Builders;
@@ -38,36 +39,22 @@ public class CalendarBuilder
 
     public CalendarBuilder WithDefaultOpeningHours()
     {
-        var days = new List<DayOfWeek>()
-            { DayOfWeek.Monday, DayOfWeek.Tuesday, DayOfWeek.Wednesday, DayOfWeek.Thursday, DayOfWeek.Friday };
-
-        var openingHours = new List<Availability>();
-        foreach (var day in days)
-        {
-            var availability = new Availability(
-                day,
-                new TimeOnly(9, 0),
-                new TimeOnly(17, 0),
-                TimeZoneInfo.Local // change to users local
-            );
-            openingHours.Add(availability);
-        }
-
-        _openingHours = openingHours;
-
+        _openingHours = new OpeningHoursBuilder()
+            .CreateOpeningHours()
+            .WithDefaultDays()
+            .WithDefaultStartAndFinishTimes()
+            .WithTimeZone(TimeZoneInfo.Local)
+            .Build();
+            
         return this;
     }
 
     public CalendarAggregate Build()
     {
-        if (_openingHours is null) throw new ArgumentException("Opening Hours cannot be null");
+        Guard.Against.Null(_openingHours, nameof(_openingHours));
+        Guard.Against.NullOrEmpty(_calendarId, nameof(_calendarId));
+        Guard.Against.NullOrEmpty(_userId, nameof(_userId));
 
         return new CalendarAggregate(_calendarId, _userId, _openingHours);
-        // return new CalendarAggregate
-        // {
-        //     Id = _calendarId,
-        //     UserId = _userId,
-        //     OpeningHours = _openingHours
-        // };
     }
 }

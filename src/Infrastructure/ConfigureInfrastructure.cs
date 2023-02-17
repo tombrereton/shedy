@@ -2,7 +2,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Shedy.Core.Interfaces;
-using Shedy.Infrastructure.Database;
+using Shedy.Infrastructure.Persistance;
 using Shedy.Infrastructure.Repositories;
 
 namespace Shedy.Infrastructure;
