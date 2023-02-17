@@ -7,8 +7,7 @@ public class AvailabilityBuilder
     private DayOfWeek _dayOfWeek;
     private TimeOnly _startTime;
     private TimeOnly _finishTime;
-    private TimeZoneInfo _timeZone;
-    private List<Availability> _openingHours;
+    private TimeZoneInfo _timeZone = null!;
 
     public AvailabilityBuilder CreateAvailability()
     {

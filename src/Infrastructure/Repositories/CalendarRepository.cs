@@ -15,20 +15,9 @@ public class CalendarRepository : ICalendarRepository
         _dbContext = dbContext;
     }
 
-    public async Task<CalendarAggregate> GetAsync(Guid id, CancellationToken cancellationToken)
+    public async Task<CalendarAggregate?> GetAsync(Guid id, CancellationToken cancellationToken)
     {
-        var calendar = await _dbContext.Calendars.FirstOrDefaultAsync(x => x.Id == id, cancellationToken);
-        if (calendar is not null)
-        {
-            return calendar;
-        }
-
-        // change this to null
-        return new CalendarBuilder()
-            .CreateCalendar()
-            .WithNewCalendarId()
-            .WithEmptyOpeningHours()
-            .Build();
+        return await _dbContext.Calendars.FirstOrDefaultAsync(x => x.Id == id, cancellationToken);
     }
 
     public async Task SaveAsync(CalendarAggregate calendar, CancellationToken cancellationToken)

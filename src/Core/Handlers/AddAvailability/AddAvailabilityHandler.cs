@@ -1,3 +1,4 @@
+using Ardalis.GuardClauses;
 using MediatR;
 using Shedy.Core.Interfaces;
 
@@ -15,6 +16,8 @@ public class AddAvailabilityHandler : IRequestHandler<AddAvailability, AddAvaila
     public async Task<AddAvailabilityResult> Handle(AddAvailability request, CancellationToken cancellationToken)
     {
         var calendar = await _repository.GetAsync(request.CalendarId, cancellationToken);
+        Guard.Against.Null(calendar, nameof(calendar));
+        
         calendar.AddAvailability(request.Availability);
         await _repository.SaveAsync(calendar, cancellationToken);
         

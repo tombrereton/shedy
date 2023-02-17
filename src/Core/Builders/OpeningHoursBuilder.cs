@@ -8,7 +8,7 @@ public class OpeningHoursBuilder
     private TimeOnly _startTime;
     private TimeOnly _finishTime;
     private List<DayOfWeek> _days = new();
-    private TimeZoneInfo _timeZone;
+    private TimeZoneInfo _timeZone = null!;
 
     public OpeningHoursBuilder CreateOpeningHours()
     {
