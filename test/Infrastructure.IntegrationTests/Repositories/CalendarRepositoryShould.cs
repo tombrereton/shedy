@@ -37,7 +37,7 @@ public sealed class CalendarRepositoryShould : IAsyncLifetime
             .CreateCalendar()
             .WithNewCalendarId()
             .WithUserId(Guid.NewGuid())
-            .WithDefaultOpeningHours()
+            .WithDefaultOpeningHours(TimeZoneInfo.Local)
             .Build();
         
         var db = _services.GetRequiredService<ShedyDbContext>();
@@ -62,7 +62,7 @@ public sealed class CalendarRepositoryShould : IAsyncLifetime
             .CreateCalendar()
             .WithNewCalendarId()
             .WithUserId(Guid.NewGuid())
-            .WithDefaultOpeningHours()
+            .WithDefaultOpeningHours(TimeZoneInfo.Local)
             .Build();
         
         var db = _services.GetRequiredService<ShedyDbContext>();
@@ -86,7 +86,7 @@ public sealed class CalendarRepositoryShould : IAsyncLifetime
             .CreateCalendar()
             .WithNewCalendarId()
             .WithUserId(Guid.NewGuid())
-            .WithDefaultOpeningHours()
+            .WithDefaultOpeningHours(TimeZoneInfo.Local)
             .Build();
         
         var db = _services.GetRequiredService<ShedyDbContext>();

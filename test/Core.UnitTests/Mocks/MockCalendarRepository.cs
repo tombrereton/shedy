@@ -8,7 +8,7 @@ namespace Shedy.Core.UnitTests.Mocks;
 public class MockCalendarRepository : Mock<ICalendarRepository>
 {
     private Guid _id;
-    private CalendarAggregate _output;
+    private CalendarAggregate _output = null!;
 
     public MockCalendarRepository CreateGetAsyncStub()
     {

@@ -37,13 +37,13 @@ public class CalendarBuilder
         return this;
     }
 
-    public CalendarBuilder WithDefaultOpeningHours()
+    public CalendarBuilder WithDefaultOpeningHours(TimeZoneInfo timeZone)
     {
         _openingHours = new OpeningHoursBuilder()
             .CreateOpeningHours()
             .WithDefaultDays()
             .WithDefaultStartAndFinishTimes()
-            .WithTimeZone(TimeZoneInfo.Local)
+            .WithTimeZone(timeZone)
             .Build();
             
         return this;

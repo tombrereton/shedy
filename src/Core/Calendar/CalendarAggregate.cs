@@ -1,4 +1,5 @@
-﻿using Shedy.Core.Handlers.CreateCalendar;
+﻿using Ardalis.GuardClauses;
+using Shedy.Core.Handlers.CreateCalendar;
 
 namespace Shedy.Core.Calendar;
 
@@ -33,7 +34,17 @@ public class CalendarAggregate
 
     public void AddEvent(CalendarEvent calendarEvent)
     {
+        ValidateEvent(calendarEvent);
         _events.Add(calendarEvent);
+    }
+
+    private void ValidateEvent(CalendarEvent calendarEvent)
+    {
+        var day = calendarEvent.Start.DayOfWeek;
+        var start = calendarEvent.Start.TimeOfDay;
+        var openingHoursOnDay = OpeningHours.FirstOrDefault(x => x.Day == day);
+        if (openingHoursOnDay is null || start < openingHoursOnDay.Start.ToTimeSpan())
+            throw new ArgumentException("Event not within opening hours");
     }
 
     // Keep empty constructor for EF Core
