@@ -37,7 +37,7 @@ public class CreateCalendarShould
 
         var calendar = await repo.GetAsync(result.CalendarId, default);
         calendar.Should().NotBeNull();
-        calendar.Id.Should().Be(result.CalendarId);
+        calendar!.Id.Should().Be(result.CalendarId);
     }
 
     [Fact]

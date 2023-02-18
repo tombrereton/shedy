@@ -20,6 +20,7 @@ public sealed class CalendarRepositoryShould : IAsyncLifetime
         Database = "test",
         Username = "shedy",
         Password = "postgres",
+        
     };
     
     private readonly TestcontainerDatabase _postgresqlContainer = new ContainerBuilder<PostgreSqlTestcontainer>()

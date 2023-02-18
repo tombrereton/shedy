@@ -42,5 +42,36 @@ public class CalendarAggregateConfiguration : IEntityTypeConfiguration<CalendarA
                     )
                     .IsRequired();
             });
+        
+        builder
+            .OwnsMany(x => x.Events, ownedBuilder =>
+            {
+                ownedBuilder
+                    .HasKey(x => x.Id);
+
+                ownedBuilder
+                    .Property(x => x.Start)
+                    .IsRequired();
+
+                ownedBuilder
+                    .Property(x => x.Finish)
+                    .IsRequired();
+
+                ownedBuilder
+                    .Property(x => x.TimeZone)
+                    .HasConversion(
+                        x => x.ToSerializedString(),
+                        x => TimeZoneInfo.FromSerializedString(x)
+                    )
+                    .IsRequired();
+
+                ownedBuilder
+                    .Property(x => x.Title)
+                    .HasMaxLength(500);
+                
+                ownedBuilder
+                    .Property(x => x.Description)
+                    .HasMaxLength(3000);
+            });
     }
 }
