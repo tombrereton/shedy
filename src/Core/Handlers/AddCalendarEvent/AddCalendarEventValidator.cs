@@ -7,5 +7,6 @@ public class AddCalendarEventValidator : AbstractValidator<AddCalendarEvent>
     public AddCalendarEventValidator()
     {
         RuleFor(x => x.CalendarId).NotEmpty().NotNull();
+        RuleFor(x => x.Event).NotNull();
     }
 }

@@ -26,7 +26,7 @@ public class AddCalendarEventShould
 
     [Theory]
     [AutoData]
-    public async Task AddAvailabilityExistingCalendar(AddCalendarEvent command)
+    public async Task AddCalendarEventToExistingCalendar(AddCalendarEvent command)
     {
         // arrange
         var mediator = _services.GetRequiredService<IMediator>();
@@ -46,19 +46,34 @@ public class AddCalendarEventShould
         result.Event.Should().Be(command.Event);
     }
 
-    // [Theory]
-    // [AutoData]
-    // public async Task ValidateAddAvailability(Availability availability)
-    // {
-    //     // arrange
-    //     var command = new AddAvailability(Guid.Empty, availability);
-    //     var mediator = _services.GetRequiredService<IMediator>();
-    //
-    //     // act
-    //     Func<Task> act = async () => { await mediator.Send(command, default); };
-    //
-    //     // assert
-    //     await act.Should().ThrowAsync<ValidationException>()
-    //         .WithMessage("*CalendarId*not*empty*");
-    // }
+    [Theory]
+    [AutoData]
+    public async Task ValidateAddCalendarEvent(CalendarEvent calendarEvent)
+    {
+        // arrange
+        var command = new AddCalendarEvent(Guid.Empty, calendarEvent);
+        var mediator = _services.GetRequiredService<IMediator>();
+    
+        // act
+        Func<Task> act = async () => { await mediator.Send(command, default); };
+    
+        // assert
+        await act.Should().ThrowAsync<ValidationException>()
+            .WithMessage("*CalendarId*not*empty*");
+    }
+    
+    [Fact]
+    public async Task ValidateNullCalendarEvent()
+    {
+        // arrange
+        var command = new AddCalendarEvent(Guid.NewGuid(), null!);
+        var mediator = _services.GetRequiredService<IMediator>();
+
+        // act
+        Func<Task> act = async () => { await mediator.Send(command, default); };
+
+        // assert
+        await act.Should().ThrowAsync<ValidationException>()
+            .WithMessage("*Event*not*empty*");
+    }
 }
