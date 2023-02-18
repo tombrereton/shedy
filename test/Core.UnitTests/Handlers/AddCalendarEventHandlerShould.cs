@@ -1,18 +1,17 @@
 using AutoFixture.Xunit2;
-using FluentAssertions;
 using Moq;
 using Shedy.Core.Builders;
 using Shedy.Core.Calendar;
-using Shedy.Core.Handlers.AddAvailability;
+using Shedy.Core.Handlers.AddCalendarEvent;
 using Shedy.Core.UnitTests.Mocks;
 
 namespace Shedy.Core.UnitTests.Handlers;
 
-public class AddAvailabilityHandlerShould
+public class AddCalendarEventHandlerShould
 {
     [Theory]
     [AutoData]
-    public async Task GetCalendarFromRepository(AddAvailability command)
+    public async Task GetCalendarFromRepository(AddCalendarEvent command)
     {
         // act
         var calendar = new CalendarBuilder()
@@ -26,8 +25,7 @@ public class AddAvailabilityHandlerShould
             .WithInputParameters(calendar.Id)
             .WithReturnObject(calendar)
             .Build();
-        
-        var handler = new AddAvailabilityHandler(mockRepo.Object);
+        var handler = new AddCalendarEventHandler(mockRepo.Object);
 
         // act
         await handler.Handle(command, default);
@@ -38,35 +36,10 @@ public class AddAvailabilityHandlerShould
             It.IsAny<CancellationToken>()
         ));
     }
-
+    
     [Theory]
     [AutoData]
-    public async Task AddAvailabilityToCalendar(AddAvailability command)
-    {
-        // arrange
-        var calendar = new CalendarBuilder()
-            .CreateCalendar()
-            .WithUserId(Guid.NewGuid())
-            .WithCalendarId(command.CalendarId)
-            .WithEmptyOpeningHours()
-            .Build();
-        var mockRepo = new MockCalendarRepository()
-            .CreateGetAsyncStub()
-            .WithInputParameters(calendar.Id)
-            .WithReturnObject(calendar)
-            .Build();
-        var handler = new AddAvailabilityHandler(mockRepo.Object);
-
-        // act
-        var result = await handler.Handle(command, default);
-
-        // assert
-        result.OpeningHours.First().Should().Be(command.Availability);
-    }
-
-    [Theory]
-    [AutoData]
-    public async Task SaveNewCalendarToRepository(AddAvailability command)
+    public async Task SaveCalendarToRepository(AddCalendarEvent command)
     {
         // act
         var calendar = new CalendarBuilder()
@@ -80,14 +53,14 @@ public class AddAvailabilityHandlerShould
             .WithInputParameters(calendar.Id)
             .WithReturnObject(calendar)
             .Build();
-        var handler = new AddAvailabilityHandler(mockRepo.Object);
+        var handler = new AddCalendarEventHandler(mockRepo.Object);
 
         // act
-        var result = await handler.Handle(command, default);
+        await handler.Handle(command, default);
 
         // assert
         mockRepo.Verify(x => x.SaveAsync(
-            It.Is<CalendarAggregate>(y => y.Id == command.CalendarId && y.OpeningHours.Count == 1),
+            It.Is<CalendarAggregate>(y => y.Events.First() == command.Event),
             It.IsAny<CancellationToken>()
         ));
     }

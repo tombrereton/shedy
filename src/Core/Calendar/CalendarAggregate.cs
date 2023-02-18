@@ -31,6 +31,11 @@ public class CalendarAggregate
         _availability.AddRange(newAvailability);
     }
 
+    public void AddEvent(CalendarEvent calendarEvent)
+    {
+        _events.Add(calendarEvent);
+    }
+
     // Keep empty constructor for EF Core
     private CalendarAggregate()
     {
