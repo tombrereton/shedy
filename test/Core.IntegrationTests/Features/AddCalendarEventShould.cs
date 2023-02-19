@@ -24,20 +24,27 @@ public class AddCalendarEventShould
             .BuildServiceProvider();
     }
 
-    [Theory]
-    [AutoData]
-    public async Task AddCalendarEventToExistingCalendar(AddCalendarEvent command)
+    [Fact]
+    public async Task AddCalendarEventToExistingCalendar()
     {
         // arrange
-        var mediator = _services.GetRequiredService<IMediator>();
-        var repo = _services.GetRequiredService<ICalendarRepository>();
         var calendar = new CalendarBuilder()
             .CreateCalendar()
-            .WithCalendarId(command.CalendarId)
+            .WithNewCalendarId()
             .WithUserId(Guid.NewGuid())
-            .WithEmptyOpeningHours()
+            .WithDefaultOpeningHours(TimeZoneInfo.Local)
             .Build();
+        var repo = _services.GetRequiredService<ICalendarRepository>();
         await repo.SaveAsync(calendar, default);
+        
+        var calendarEvent = new CalendarEventBuilder()
+            .CreateCalendarEvent()
+            .WithStart(DateTimeOffset.Parse("2023-01-02T09:00:00Z"))
+            .WithDurationInMinutes(30)
+            .WithTimeZone(TimeZoneInfo.Local)
+            .Build();
+        var command = new AddCalendarEvent(calendar.Id, calendarEvent);
+        var mediator = _services.GetRequiredService<IMediator>();
 
         // act
         var result = await mediator.Send(command, default);

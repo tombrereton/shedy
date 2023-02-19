@@ -25,7 +25,13 @@ public class CalendarEventBuilder
         _finish = finish;
         return this;
     }
-    
+
+    public CalendarEventBuilder WithDurationInMinutes(int minutes)
+    {
+        _finish = _start.AddMinutes(minutes);
+        return this;
+    }
+
     public CalendarEventBuilder WithTimeZone(TimeZoneInfo timeZone)
     {
         _timeZone = timeZone;

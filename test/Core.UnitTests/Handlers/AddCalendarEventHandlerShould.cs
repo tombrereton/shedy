@@ -9,22 +9,28 @@ namespace Shedy.Core.UnitTests.Handlers;
 
 public class AddCalendarEventHandlerShould
 {
-    [Theory]
-    [AutoData]
-    public async Task GetCalendarFromRepository(AddCalendarEvent command)
+    [Fact]
+    public async Task GetCalendarFromRepository()
     {
         // act
         var calendar = new CalendarBuilder()
             .CreateCalendar()
-            .WithCalendarId(command.CalendarId)
+            .WithNewCalendarId()
             .WithUserId(Guid.NewGuid())
-            .WithEmptyOpeningHours()
+            .WithDefaultOpeningHours(TimeZoneInfo.Local)
             .Build();
         var mockRepo = new MockCalendarRepository()
             .CreateGetAsyncStub()
             .WithInputParameters(calendar.Id)
             .WithReturnObject(calendar)
             .Build();
+        var calendarEvent = new CalendarEventBuilder()
+            .CreateCalendarEvent()
+            .WithStart(DateTimeOffset.Parse("2023-01-02T09:00:00Z"))
+            .WithDurationInMinutes(30)
+            .WithTimeZone(TimeZoneInfo.Local)
+            .Build();
+        var command = new AddCalendarEvent(calendar.Id, calendarEvent);
         var handler = new AddCalendarEventHandler(mockRepo.Object);
 
         // act
@@ -37,22 +43,28 @@ public class AddCalendarEventHandlerShould
         ));
     }
     
-    [Theory]
-    [AutoData]
-    public async Task SaveCalendarToRepository(AddCalendarEvent command)
+    [Fact]
+    public async Task SaveCalendarToRepository()
     {
         // act
         var calendar = new CalendarBuilder()
             .CreateCalendar()
-            .WithCalendarId(command.CalendarId)
+            .WithNewCalendarId()
             .WithUserId(Guid.NewGuid())
-            .WithEmptyOpeningHours()
+            .WithDefaultOpeningHours(TimeZoneInfo.Local)
             .Build();
         var mockRepo = new MockCalendarRepository()
             .CreateGetAsyncStub()
             .WithInputParameters(calendar.Id)
             .WithReturnObject(calendar)
             .Build();
+        var calendarEvent = new CalendarEventBuilder()
+            .CreateCalendarEvent()
+            .WithStart(DateTimeOffset.Parse("2023-01-02T09:00:00Z"))
+            .WithDurationInMinutes(30)
+            .WithTimeZone(TimeZoneInfo.Local)
+            .Build();
+        var command = new AddCalendarEvent(calendar.Id, calendarEvent);
         var handler = new AddCalendarEventHandler(mockRepo.Object);
 
         // act
