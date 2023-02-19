@@ -1,15 +1,14 @@
 using FluentAssertions;
 using Shedy.Core.Builders;
-using Shedy.Core.Calendar;
 
 namespace Shedy.Core.UnitTests.Calendar;
 
 public class CalendarShould
 {
     [Theory]
-    [InlineData("2023-01-01T06:00:00Z")]
-    [InlineData("2023-01-02T06:00:00Z")]
-    public void NotAddEventOutsideOpeningHours(string startDateTime)
+    [InlineData("2023-01-01T06:00:00Z", "day is on a weekend")]
+    [InlineData("2023-01-02T08:59:00Z", "correct day but before 9am")]
+    public void NotAddEventOutsideOpeningHours(string startDateTime, string because)
     {
         // arrange 
         var calendar = new CalendarBuilder()
@@ -31,6 +30,6 @@ public class CalendarShould
 
         // assert
         act.Should().Throw<ArgumentException>()
-            .WithMessage("*Event not within opening hours*");
+            .WithMessage("*Event not within opening hours*", because);
     }
 }
