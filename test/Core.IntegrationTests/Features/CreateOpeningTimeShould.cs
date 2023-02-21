@@ -5,17 +5,17 @@ using MediatR;
 using Microsoft.Extensions.DependencyInjection;
 using Shedy.Core.Builders;
 using Shedy.Core.Calendar;
-using Shedy.Core.Handlers.AddAvailability;
+using Shedy.Core.Handlers.CreateOpeningTime;
 using Shedy.Core.IntegrationTests.Fakes;
 using Shedy.Core.Interfaces;
 
 namespace Shedy.Core.IntegrationTests.Features;
 
-public class AddAvailabilityShould
+public class CreateOpeningTimeShould
 {
     private readonly ServiceProvider _services;
 
-    public AddAvailabilityShould()
+    public CreateOpeningTimeShould()
     {
         _services = new ServiceCollection()
             .AddCore()
@@ -25,7 +25,7 @@ public class AddAvailabilityShould
 
     [Theory]
     [AutoData]
-    public async Task AddAvailabilityExistingCalendar(AddAvailability command)
+    public async Task AddAvailabilityExistingCalendar(CreateOpeningTime command)
     {
         // arrange
         var mediator = _services.GetRequiredService<IMediator>();
@@ -42,15 +42,15 @@ public class AddAvailabilityShould
         var result = await mediator.Send(command, default);
 
         // assert
-        result.OpeningHours.First().Should().Be(command.Availability);
+        result.OpeningHours.First().Should().Be(command.OpeningTime);
     }
 
     [Theory]
     [AutoData]
-    public async Task ValidateAddAvailability(Availability availability)
+    public async Task ValidateAddAvailability(OpeningTime openingTime)
     {
         // arrange
-        var command = new AddAvailability(Guid.Empty, availability);
+        var command = new CreateOpeningTime(Guid.Empty, openingTime);
         var mediator = _services.GetRequiredService<IMediator>();
 
         // act

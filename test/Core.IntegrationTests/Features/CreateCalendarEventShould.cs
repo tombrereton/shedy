@@ -5,18 +5,17 @@ using MediatR;
 using Microsoft.Extensions.DependencyInjection;
 using Shedy.Core.Builders;
 using Shedy.Core.Calendar;
-using Shedy.Core.Handlers.AddAvailability;
-using Shedy.Core.Handlers.AddCalendarEvent;
+using Shedy.Core.Handlers.CreateCalendarEvent;
 using Shedy.Core.IntegrationTests.Fakes;
 using Shedy.Core.Interfaces;
 
 namespace Shedy.Core.IntegrationTests.Features;
 
-public class AddCalendarEventShould
+public class CreateCalendarEventShould
 {
     private readonly ServiceProvider _services;
 
-    public AddCalendarEventShould()
+    public CreateCalendarEventShould()
     {
         _services = new ServiceCollection()
             .AddCore()
@@ -43,7 +42,7 @@ public class AddCalendarEventShould
             .WithDurationInMinutes(30)
             .WithTimeZone(TimeZoneInfo.Local)
             .Build();
-        var command = new AddCalendarEvent(calendar.Id, calendarEvent);
+        var command = new CreateCalendarEvent(calendar.Id, calendarEvent);
         var mediator = _services.GetRequiredService<IMediator>();
 
         // act
@@ -58,7 +57,7 @@ public class AddCalendarEventShould
     public async Task ValidateAddCalendarEvent(CalendarEvent calendarEvent)
     {
         // arrange
-        var command = new AddCalendarEvent(Guid.Empty, calendarEvent);
+        var command = new CreateCalendarEvent(Guid.Empty, calendarEvent);
         var mediator = _services.GetRequiredService<IMediator>();
     
         // act
@@ -73,7 +72,7 @@ public class AddCalendarEventShould
     public async Task ValidateNullCalendarEvent()
     {
         // arrange
-        var command = new AddCalendarEvent(Guid.NewGuid(), null!);
+        var command = new CreateCalendarEvent(Guid.NewGuid(), null!);
         var mediator = _services.GetRequiredService<IMediator>();
 
         // act

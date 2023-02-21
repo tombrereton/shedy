@@ -5,18 +5,17 @@ using MediatR;
 using Microsoft.Extensions.DependencyInjection;
 using Shedy.Core.Builders;
 using Shedy.Core.Calendar;
-using Shedy.Core.Handlers.AddAvailability;
-using Shedy.Core.Handlers.UpdateAvailability;
+using Shedy.Core.Handlers.UpdateOpeningTimes;
 using Shedy.Core.IntegrationTests.Fakes;
 using Shedy.Core.Interfaces;
 
 namespace Shedy.Core.IntegrationTests.Features;
 
-public class UpdateAvailabilityShould
+public class UpdateOpeningTimesShould
 {
     private readonly ServiceProvider _services;
 
-    public UpdateAvailabilityShould()
+    public UpdateOpeningTimesShould()
     {
         _services = new ServiceCollection()
             .AddCore()
@@ -37,27 +36,27 @@ public class UpdateAvailabilityShould
         var repo = _services.GetRequiredService<ICalendarRepository>();
         await repo.SaveAsync(calendar, default);
         var mediator = _services.GetRequiredService<IMediator>();
-        var newAvailability = new OpeningHoursBuilder()
-            .CreateOpeningHours()
+        var newAvailability = new OpeningTimesBuilder()
+            .CreateOpeningTimes()
             .WithDay(DayOfWeek.Monday)
             .WithDefaultStartAndFinishTimes()
             .WithTimeZone(TimeZoneInfo.Local)
             .Build();
-        var command = new UpdateAvailability(calendar.Id, newAvailability);
+        var command = new UpdateOpeningTimes(calendar.Id, newAvailability);
 
         // act
         var result = await mediator.Send(command, default);
 
         // assert
-        result.OpeningHours.Should().BeEquivalentTo(command.Availability);
+        result.OpeningHours.Should().BeEquivalentTo(command.OpeningTimes);
     }
 
     [Theory]
     [AutoData]
-    public async Task ValidateEmptyCalendarId(IEnumerable<Availability> availability)
+    public async Task ValidateEmptyCalendarId(IEnumerable<OpeningTime> availability)
     {
         // arrange
-        var command = new UpdateAvailability(Guid.Empty, availability);
+        var command = new UpdateOpeningTimes(Guid.Empty, availability);
         var mediator = _services.GetRequiredService<IMediator>();
 
         // act
@@ -72,7 +71,7 @@ public class UpdateAvailabilityShould
     public async Task ValidateNullAvailability()
     {
         // arrange
-        var command = new UpdateAvailability(Guid.NewGuid(), null!);
+        var command = new UpdateOpeningTimes(Guid.NewGuid(), null!);
         var mediator = _services.GetRequiredService<IMediator>();
 
         // act
@@ -80,6 +79,6 @@ public class UpdateAvailabilityShould
 
         // assert
         await act.Should().ThrowAsync<ValidationException>()
-            .WithMessage("*Availability*not*empty*");
+            .WithMessage("*OpeningTimes*not*empty*");
     }
 }

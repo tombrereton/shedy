@@ -6,7 +6,7 @@ namespace Shedy.Core.Builders;
 public class CalendarBuilder
 {
     private Guid _calendarId;
-    private List<Availability> _openingHours = new();
+    private List<OpeningTime> _openingHours = new();
     private Guid _userId;
 
     public CalendarBuilder CreateCalendar()
@@ -39,8 +39,8 @@ public class CalendarBuilder
 
     public CalendarBuilder WithDefaultOpeningHours(TimeZoneInfo timeZone)
     {
-        _openingHours = new OpeningHoursBuilder()
-            .CreateOpeningHours()
+        _openingHours = new OpeningTimesBuilder()
+            .CreateOpeningTimes()
             .WithDefaultDays()
             .WithDefaultStartAndFinishTimes()
             .WithTimeZone(timeZone)

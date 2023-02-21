@@ -20,7 +20,7 @@ public class CalendarAggregateConfiguration : IEntityTypeConfiguration<CalendarA
             .IsRequired();
 
         builder
-            .OwnsMany(x => x.OpeningHours, ownedBuilder =>
+            .OwnsMany(x => x.OpeningTimes, ownedBuilder =>
             {
                 ownedBuilder
                     .Property(x => x.Day)

@@ -50,7 +50,7 @@ public sealed class CalendarRepositoryShould : IAsyncLifetime
         var result = await repo.GetAsync(calendar.Id, default);
 
         // assert
-        result!.OpeningHours.Should().Equal(calendar.OpeningHours);
+        result!.OpeningTimes.Should().Equal(calendar.OpeningTimes);
         result.UserId.Should().Be(calendar.UserId);
     }
 
@@ -74,7 +74,7 @@ public sealed class CalendarRepositoryShould : IAsyncLifetime
         // assert
         var result = await db.Calendars.FirstOrDefaultAsync(x => x.Id == calendar.Id);
         result.Should().NotBeNull();
-        result!.OpeningHours.Should().Equal(calendar.OpeningHours);
+        result!.OpeningTimes.Should().Equal(calendar.OpeningTimes);
         result.UserId.Should().Be(calendar.UserId);
     }
     

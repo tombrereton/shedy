@@ -1,13 +1,12 @@
-using AutoFixture.Xunit2;
 using Moq;
 using Shedy.Core.Builders;
 using Shedy.Core.Calendar;
-using Shedy.Core.Handlers.AddCalendarEvent;
+using Shedy.Core.Handlers.CreateCalendarEvent;
 using Shedy.Core.UnitTests.Mocks;
 
 namespace Shedy.Core.UnitTests.Handlers;
 
-public class AddCalendarEventHandlerShould
+public class CreateCalendarEventHandlerShould
 {
     [Fact]
     public async Task GetCalendarFromRepository()
@@ -30,8 +29,8 @@ public class AddCalendarEventHandlerShould
             .WithDurationInMinutes(30)
             .WithTimeZone(TimeZoneInfo.Local)
             .Build();
-        var command = new AddCalendarEvent(calendar.Id, calendarEvent);
-        var handler = new AddCalendarEventHandler(mockRepo.Object);
+        var command = new CreateCalendarEvent(calendar.Id, calendarEvent);
+        var handler = new CreateCalendarEventHandler(mockRepo.Object);
 
         // act
         await handler.Handle(command, default);
@@ -64,8 +63,8 @@ public class AddCalendarEventHandlerShould
             .WithDurationInMinutes(30)
             .WithTimeZone(TimeZoneInfo.Local)
             .Build();
-        var command = new AddCalendarEvent(calendar.Id, calendarEvent);
-        var handler = new AddCalendarEventHandler(mockRepo.Object);
+        var command = new CreateCalendarEvent(calendar.Id, calendarEvent);
+        var handler = new CreateCalendarEventHandler(mockRepo.Object);
 
         // act
         await handler.Handle(command, default);

@@ -1,20 +1,19 @@
 using Ardalis.GuardClauses;
 using MediatR;
-using Shedy.Core.Builders;
 using Shedy.Core.Interfaces;
 
-namespace Shedy.Core.Handlers.AddCalendarEvent;
+namespace Shedy.Core.Handlers.CreateCalendarEvent;
 
-public class AddCalendarEventHandler : IRequestHandler<AddCalendarEvent, AddCalendarEventResult>
+public class CreateCalendarEventHandler : IRequestHandler<CreateCalendarEvent, CreateCalendarEventResult>
 {
     private readonly ICalendarRepository _repository;
 
-    public AddCalendarEventHandler(ICalendarRepository repository)
+    public CreateCalendarEventHandler(ICalendarRepository repository)
     {
         _repository = repository;
     }
 
-    public async Task<AddCalendarEventResult> Handle(AddCalendarEvent request, CancellationToken cancellationToken)
+    public async Task<CreateCalendarEventResult> Handle(CreateCalendarEvent request, CancellationToken cancellationToken)
     {
         var calendar = await _repository.GetAsync(request.CalendarId, cancellationToken);
         Guard.Against.Null(calendar, nameof(calendar));
@@ -22,6 +21,6 @@ public class AddCalendarEventHandler : IRequestHandler<AddCalendarEvent, AddCale
         calendar.AddEvent(request.Event);
         await _repository.SaveAsync(calendar, cancellationToken);
         
-        return new AddCalendarEventResult(request.CalendarId, request.Event);
+        return new CreateCalendarEventResult(request.CalendarId, request.Event);
     }
 }

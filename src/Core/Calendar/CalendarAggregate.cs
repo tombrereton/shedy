@@ -5,28 +5,28 @@ public class CalendarAggregate
     public Guid Id { get; }
     public Guid UserId { get; }
 
-    private readonly List<Availability> _availability = new();
+    private readonly List<OpeningTime> _openingTimes = new();
     private readonly List<CalendarEvent> _events = new();
 
-    public IReadOnlyList<Availability> OpeningHours => _availability.AsReadOnly();
+    public IReadOnlyList<OpeningTime> OpeningTimes => _openingTimes.AsReadOnly();
     public IReadOnlyList<CalendarEvent> Events => _events.AsReadOnly();
 
-    public CalendarAggregate(Guid id, Guid userId, List<Availability> availability)
+    public CalendarAggregate(Guid id, Guid userId, List<OpeningTime> openingTimes)
     {
         Id = id;
         UserId = userId;
-        _availability = availability;
+        _openingTimes = openingTimes;
     }
 
-    public void AddAvailability(Availability availability)
+    public void AddOpeningTime(OpeningTime openingTime)
     {
-        _availability.Add(availability);
+        _openingTimes.Add(openingTime);
     }
 
-    public void UpdateAvailability(IEnumerable<Availability> newAvailability)
+    public void UpdateOpeningTimes(IEnumerable<OpeningTime> newAvailability)
     {
-        _availability.Clear();
-        _availability.AddRange(newAvailability);
+        _openingTimes.Clear();
+        _openingTimes.AddRange(newAvailability);
     }
 
     public void AddEvent(CalendarEvent calendarEvent)
@@ -40,8 +40,8 @@ public class CalendarAggregate
     {
         var day = calendarEvent.Start.DayOfWeek;
         var start = calendarEvent.Start.TimeOfDay;
-        var openingHoursOnDay = OpeningHours.FirstOrDefault(x => x.Day == day);
-        if (openingHoursOnDay is null || start < openingHoursOnDay.Start.ToTimeSpan())
+        var openingTimesOnDay = OpeningTimes.FirstOrDefault(x => x.Day == day);
+        if (openingTimesOnDay is null || start < openingTimesOnDay.Start.ToTimeSpan())
             return false;
         return true;
     }

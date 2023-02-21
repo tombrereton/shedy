@@ -1,6 +1,6 @@
 namespace Shedy.Core.Calendar;
 
-public record Availability(
+public record OpeningTime(
     DayOfWeek Day,
     TimeOnly Start,
     TimeOnly Finish,

@@ -3,32 +3,32 @@ using Shedy.Core.Calendar;
 
 namespace Shedy.Core.Builders;
 
-public class OpeningHoursBuilder
+public class OpeningTimesBuilder
 {
     private TimeOnly _startTime;
     private TimeOnly _finishTime;
     private List<DayOfWeek> _days = new();
     private TimeZoneInfo _timeZone = null!;
 
-    public OpeningHoursBuilder CreateOpeningHours()
+    public OpeningTimesBuilder CreateOpeningTimes()
     {
-        return new OpeningHoursBuilder();
+        return new OpeningTimesBuilder();
     }
 
-    public OpeningHoursBuilder WithDefaultDays()
+    public OpeningTimesBuilder WithDefaultDays()
     {
         _days = new List<DayOfWeek>()
             { DayOfWeek.Monday, DayOfWeek.Tuesday, DayOfWeek.Wednesday, DayOfWeek.Thursday, DayOfWeek.Friday };
         return this;
     }
 
-    public OpeningHoursBuilder WithDay(DayOfWeek day)
+    public OpeningTimesBuilder WithDay(DayOfWeek day)
     {
         _days.Add(day);
         return this;
     }
 
-    public OpeningHoursBuilder WithDefaultStartAndFinishTimes()
+    public OpeningTimesBuilder WithDefaultStartAndFinishTimes()
     {
         _startTime = new TimeOnly(9, 0);
         _finishTime = new TimeOnly(17, 0);
@@ -36,25 +36,25 @@ public class OpeningHoursBuilder
         return this;
     }
 
-    public OpeningHoursBuilder WithTimeZone(TimeZoneInfo timeZone)
+    public OpeningTimesBuilder WithTimeZone(TimeZoneInfo timeZone)
     {
         _timeZone = timeZone;
         return this;
     }
 
 
-    public List<Availability> Build()
+    public List<OpeningTime> Build()
     {
         Guard.Against.Null(_days, nameof(_days));
         Guard.Against.Null(_startTime, nameof(_startTime));
         Guard.Against.Null(_finishTime, nameof(_finishTime));
         Guard.Against.Null(_timeZone, nameof(_timeZone));
         
-        var openingHours = new List<Availability>();
+        var openingHours = new List<OpeningTime>();
         foreach (var day in _days)
         {
-            var availability = new AvailabilityBuilder()
-                .CreateAvailability()
+            var availability = new OpeningTimeBuilder()
+                .CreateOpeningTime()
                 .WithDay(day)
                 .WithStartTime(_startTime)
                 .WithFinishTime(_finishTime)
