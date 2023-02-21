@@ -40,3 +40,32 @@ this as possible and defer most of the logic to the `Core`.
 The `Infrastructure` is where we keep the logic that 
 interacts with data. This will contain the code for
 persistence and any other external data calls. 
+
+# Comparison of Scheduling Services
+
+## Calendly
+- From small businesses to Fortune 100 companies, 
+millions of people around the world rely on Calendly to close deals, 
+land candidates, build relationships, and grow their business—faster.
+- good pricing but limited to 1 event type, 1 calendar, and 1 calendar sync
+
+## Honey Book
+- An excellent service which targets freelancers
+- They provide a calendar which you can share
+- Their monthly subscription is expensive, starting at $39 US / month
+- They take a fee for transactions
+
+## TimeKit
+- Targeted at Web Developers and tech savvy organisations
+- Amazing API support and documentation
+- Very expensive for API access, $149 US / month
+
+## Shedy
+- Targeted at web developers and software engineers!
+- API first, minimalist scheduling service
+- Cheaper than all the above
+- Free tier with 100 event types, 2 calendar syncs, 100 users and calendars
+- Shedy assumes that if you have more than 5 bookings per month you can afford to pay!
+- Shedy limits free tier to 5 bookings, anything over clients will see bookings but when they
+click to book it's says fully booked. You get an email asking to pay $5 to allow booking
+- Next tier starts at only $10 AUD / month, with unlimited bookings
