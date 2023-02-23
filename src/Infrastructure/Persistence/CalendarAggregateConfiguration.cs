@@ -70,7 +70,7 @@ public class CalendarAggregateConfiguration : IEntityTypeConfiguration<CalendarA
                     .HasMaxLength(500);
                 
                 ownedBuilder
-                    .Property(x => x.Description)
+                    .Property(x => x.Notes)
                     .HasMaxLength(3000);
             });
     }

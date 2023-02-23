@@ -7,7 +7,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Shedy.Core.Builders;
 using Shedy.Core.Interfaces;
-using Shedy.Infrastructure.Persistance;
+using Shedy.Infrastructure.Persistence;
 
 #pragma warning disable CS0618
 
@@ -20,6 +20,7 @@ public sealed class CalendarRepositoryShould : IAsyncLifetime
         Database = "test",
         Username = "shedy",
         Password = "postgres",
+        
         
     };
     

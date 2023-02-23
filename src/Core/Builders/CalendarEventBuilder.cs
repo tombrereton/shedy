@@ -46,7 +46,11 @@ public class CalendarEventBuilder
         
         var id = Guid.NewGuid();
         var title = "title";
-        var description = "description";
-        return new CalendarEvent(id, _start, _finish, _timeZone, title, description);
+        var notes = "description";
+        string url = "url";
+        string location = "";
+        var recurrence = new Recurrence(false);
+        var attendees = new List<Attendee>();
+        return new CalendarEvent(id, _start, _finish, _timeZone, title, notes, url, location, recurrence, attendees, null);
     }
 }

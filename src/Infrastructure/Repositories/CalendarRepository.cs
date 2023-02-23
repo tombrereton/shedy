@@ -2,7 +2,7 @@ using Microsoft.EntityFrameworkCore;
 using Shedy.Core.Builders;
 using Shedy.Core.Calendar;
 using Shedy.Core.Interfaces;
-using Shedy.Infrastructure.Persistance;
+using Shedy.Infrastructure.Persistence;
 
 namespace Shedy.Infrastructure.Repositories;
 

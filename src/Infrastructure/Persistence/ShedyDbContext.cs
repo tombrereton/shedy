@@ -1,14 +1,14 @@
 using Microsoft.EntityFrameworkCore;
 using Shedy.Core.Calendar;
 
-namespace Shedy.Infrastructure.Persistance;
+namespace Shedy.Infrastructure.Persistence;
 
 public class ShedyDbContext : DbContext
 {
     public ShedyDbContext(DbContextOptions<ShedyDbContext> options) : base(options)
     {
-        
     }
+
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder
@@ -16,5 +16,6 @@ public class ShedyDbContext : DbContext
 
         base.OnModelCreating(modelBuilder);
     }
+
     public DbSet<CalendarAggregate> Calendars { get; set; }
 }
