@@ -41,7 +41,8 @@ public class GetCalendarEventShould
             .Build();
         calendar.AddEvent(calendarEvent);
         var repo = _services.GetRequiredService<ICalendarRepository>();
-        await repo.SaveAsync(calendar, default);
+        await repo.AddAsync(calendar, default);
+        await repo.SaveChangesAsync(default);
         var mediator = _services.GetRequiredService<IMediator>();
         var query = new GetCalendarEvent(calendar.Id, calendarEvent.Id);
 

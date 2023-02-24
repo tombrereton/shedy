@@ -1,5 +1,5 @@
 using Microsoft.EntityFrameworkCore;
-using Shedy.Core.Calendar;
+using Shedy.Core.Aggregates.Calendar;
 
 namespace Shedy.Infrastructure.Persistence;
 

@@ -1,4 +1,4 @@
-﻿namespace Shedy.Core.Calendar;
+﻿namespace Shedy.Core.Aggregates.Calendar;
 
 public class CalendarAggregate
 {

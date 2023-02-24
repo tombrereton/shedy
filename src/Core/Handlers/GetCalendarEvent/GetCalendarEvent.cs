@@ -1,5 +1,4 @@
 using MediatR;
-using Shedy.Core.Calendar;
 
 namespace Shedy.Core.Handlers.GetCalendarEvent;
 

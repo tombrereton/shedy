@@ -3,8 +3,8 @@ using FluentAssertions;
 using FluentValidation;
 using MediatR;
 using Microsoft.Extensions.DependencyInjection;
+using Shedy.Core.Aggregates.Calendar;
 using Shedy.Core.Builders;
-using Shedy.Core.Calendar;
 using Shedy.Core.Handlers.CreateCalendarEvent;
 using Shedy.Core.IntegrationTests.Fakes;
 using Shedy.Core.Interfaces;
@@ -34,7 +34,8 @@ public class CreateCalendarEventShould
             .WithDefaultOpeningHours(TimeZoneInfo.Local)
             .Build();
         var repo = _services.GetRequiredService<ICalendarRepository>();
-        await repo.SaveAsync(calendar, default);
+        await repo.AddAsync(calendar, default);
+        await repo.SaveChangesAsync(default);
         
         var calendarEvent = new CalendarEventBuilder()
             .CreateCalendarEvent()
@@ -50,6 +51,8 @@ public class CreateCalendarEventShould
 
         // assert
         result.Event.Should().Be(command.Event);
+        var calendarInDb = await repo.GetAsync(calendar.Id, default);
+        calendarInDb.Should().BeEquivalentTo(calendar);
     }
 
     [Theory]

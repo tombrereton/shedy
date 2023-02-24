@@ -1,6 +1,5 @@
 using Microsoft.EntityFrameworkCore;
-using Shedy.Core.Builders;
-using Shedy.Core.Calendar;
+using Shedy.Core.Aggregates.Calendar;
 using Shedy.Core.Interfaces;
 using Shedy.Infrastructure.Persistence;
 
@@ -20,9 +19,13 @@ public class CalendarRepository : ICalendarRepository
         return await _dbContext.Calendars.FirstOrDefaultAsync(x => x.Id == id, cancellationToken);
     }
 
-    public async Task SaveAsync(CalendarAggregate calendar, CancellationToken cancellationToken)
+    public async Task AddAsync(CalendarAggregate calendar, CancellationToken cancellationToken)
     {
-        _dbContext.Calendars.Add(calendar);
+        await _dbContext.Calendars.AddAsync(calendar, cancellationToken);
+    }
+
+    public async Task SaveChangesAsync(CancellationToken cancellationToken)
+    {
         await _dbContext.SaveChangesAsync(cancellationToken);
     }
 

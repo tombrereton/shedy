@@ -17,10 +17,11 @@ public class CreateOpeningTimeHandler : IRequestHandler<CreateOpeningTime, Creat
     {
         var calendar = await _repository.GetAsync(request.CalendarId, cancellationToken);
         Guard.Against.Null(calendar, nameof(calendar));
-        
+
         calendar.AddOpeningTime(request.OpeningTime);
-        await _repository.SaveAsync(calendar, cancellationToken);
-        
+        await _repository.AddAsync(calendar, cancellationToken);
+        await _repository.SaveChangesAsync(cancellationToken);
+
         return new CreateOpeningTimeResult(calendar.OpeningTimes);
     }
 }

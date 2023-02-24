@@ -12,7 +12,7 @@ public class CreateCalendarHandler : IRequestHandler<CreateCalendar, CreateCalen
     {
         _repository = repository;
     }
-    
+
     public async Task<CreateCalendarResult> Handle(CreateCalendar request, CancellationToken cancellationToken)
     {
         var calendar = new CalendarBuilder()
@@ -22,7 +22,8 @@ public class CreateCalendarHandler : IRequestHandler<CreateCalendar, CreateCalen
             .WithEmptyOpeningHours()
             .Build();
 
-        await _repository.SaveAsync(calendar, cancellationToken);
+        await _repository.AddAsync(calendar, cancellationToken);
+        await _repository.SaveChangesAsync(cancellationToken);
 
         return new CreateCalendarResult(calendar.UserId, calendar.Id);
     }

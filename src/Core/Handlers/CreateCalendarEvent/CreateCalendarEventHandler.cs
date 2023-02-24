@@ -1,5 +1,6 @@
 using Ardalis.GuardClauses;
 using MediatR;
+using Microsoft.VisualBasic;
 using Shedy.Core.Interfaces;
 
 namespace Shedy.Core.Handlers.CreateCalendarEvent;
@@ -19,7 +20,8 @@ public class CreateCalendarEventHandler : IRequestHandler<CreateCalendarEvent, C
         Guard.Against.Null(calendar, nameof(calendar));
         
         calendar.AddEvent(request.Event);
-        await _repository.SaveAsync(calendar, cancellationToken);
+        await _repository.AddAsync(calendar, cancellationToken);
+        await _repository.SaveChangesAsync(cancellationToken);
         
         return new CreateCalendarEventResult(request.CalendarId, request.Event);
     }

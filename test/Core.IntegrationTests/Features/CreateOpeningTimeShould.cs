@@ -3,8 +3,8 @@ using FluentAssertions;
 using FluentValidation;
 using MediatR;
 using Microsoft.Extensions.DependencyInjection;
+using Shedy.Core.Aggregates.Calendar;
 using Shedy.Core.Builders;
-using Shedy.Core.Calendar;
 using Shedy.Core.Handlers.CreateOpeningTime;
 using Shedy.Core.IntegrationTests.Fakes;
 using Shedy.Core.Interfaces;
@@ -36,7 +36,8 @@ public class CreateOpeningTimeShould
             .WithUserId(Guid.NewGuid())
             .WithEmptyOpeningHours()
             .Build();
-        await repo.SaveAsync(calendar, default);
+        await repo.AddAsync(calendar, default);
+        await repo.SaveChangesAsync(default);
 
         // act
         var result = await mediator.Send(command, default);

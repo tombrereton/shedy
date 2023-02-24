@@ -1,4 +1,4 @@
-namespace Shedy.Core.Calendar;
+namespace Shedy.Core.Aggregates.Calendar;
 
 public record CalendarEvent(
     Guid Id,
@@ -8,10 +8,10 @@ public record CalendarEvent(
     string Title,
     string Notes,
     string Url,
-    string Location,
-    Recurrence Recurrence,
-    IEnumerable<Attendee> Attendees,
-    Alert? Alert = null
+    string Location
+    // Recurrence Recurrence,
+    // IEnumerable<Attendee> Attendees
+    // Alert? Alert = null
 );
 
 public record Attendee(

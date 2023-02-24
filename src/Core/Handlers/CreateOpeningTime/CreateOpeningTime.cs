@@ -1,5 +1,5 @@
 using MediatR;
-using Shedy.Core.Calendar;
+using Shedy.Core.Aggregates.Calendar;
 
 namespace Shedy.Core.Handlers.CreateOpeningTime;
 

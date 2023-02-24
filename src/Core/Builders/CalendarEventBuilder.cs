@@ -1,5 +1,5 @@
 using Ardalis.GuardClauses;
-using Shedy.Core.Calendar;
+using Shedy.Core.Aggregates.Calendar;
 
 namespace Shedy.Core.Builders;
 
@@ -51,6 +51,6 @@ public class CalendarEventBuilder
         string location = "";
         var recurrence = new Recurrence(false);
         var attendees = new List<Attendee>();
-        return new CalendarEvent(id, _start, _finish, _timeZone, title, notes, url, location, recurrence, attendees, null);
+        return new CalendarEvent(id, _start, _finish, _timeZone, title, notes, url, location);
     }
 }

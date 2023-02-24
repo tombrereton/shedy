@@ -1,6 +1,6 @@
 using Ardalis.GuardClauses;
 using Moq;
-using Shedy.Core.Calendar;
+using Shedy.Core.Aggregates.Calendar;
 using Shedy.Core.Interfaces;
 
 namespace Shedy.Core.UnitTests.Mocks;

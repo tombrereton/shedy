@@ -1,8 +1,8 @@
 using AutoFixture.Xunit2;
 using FluentAssertions;
 using Moq;
+using Shedy.Core.Aggregates.Calendar;
 using Shedy.Core.Builders;
-using Shedy.Core.Calendar;
 using Shedy.Core.Handlers.CreateOpeningTime;
 using Shedy.Core.UnitTests.Mocks;
 
@@ -26,7 +26,7 @@ public class CreateOpeningTimeHandlerShould
             .WithInputParameters(calendar.Id)
             .WithReturnObject(calendar)
             .Build();
-        
+
         var handler = new CreateOpeningTimeHandler(mockRepo.Object);
 
         // act
@@ -86,8 +86,11 @@ public class CreateOpeningTimeHandlerShould
         var result = await handler.Handle(command, default);
 
         // assert
-        mockRepo.Verify(x => x.SaveAsync(
-            It.Is<CalendarAggregate>(y => y.Id == command.CalendarId && y.OpeningTimes.Count == 1),
+        mockRepo.Verify(x => x.AddAsync(
+            It.Is<CalendarAggregate>(y => y.Id == command.CalendarId),
+            It.IsAny<CancellationToken>()
+        ));
+        mockRepo.Verify(x => x.SaveChangesAsync(
             It.IsAny<CancellationToken>()
         ));
     }

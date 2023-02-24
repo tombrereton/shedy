@@ -3,8 +3,8 @@ using FluentAssertions;
 using FluentValidation;
 using MediatR;
 using Microsoft.Extensions.DependencyInjection;
+using Shedy.Core.Aggregates.Calendar;
 using Shedy.Core.Builders;
-using Shedy.Core.Calendar;
 using Shedy.Core.Handlers.UpdateOpeningTimes;
 using Shedy.Core.IntegrationTests.Fakes;
 using Shedy.Core.Interfaces;
@@ -34,7 +34,8 @@ public class UpdateOpeningTimesShould
             .WithEmptyOpeningHours()
             .Build();
         var repo = _services.GetRequiredService<ICalendarRepository>();
-        await repo.SaveAsync(calendar, default);
+        await repo.AddAsync(calendar, default);
+        await repo.SaveChangesAsync(default);
         var mediator = _services.GetRequiredService<IMediator>();
         var newAvailability = new OpeningTimesBuilder()
             .CreateOpeningTimes()
