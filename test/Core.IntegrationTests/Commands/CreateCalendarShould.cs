@@ -7,7 +7,7 @@ using Shedy.Core.Commands.CreateCalendar;
 using Shedy.Core.IntegrationTests.Fakes;
 using Shedy.Core.Interfaces;
 
-namespace Shedy.Core.IntegrationTests.Pipelines;
+namespace Shedy.Core.IntegrationTests.Commands;
 
 public class CreateCalendarShould
 {

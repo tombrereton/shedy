@@ -9,7 +9,7 @@ using Shedy.Core.Commands.UpdateOpeningTimes;
 using Shedy.Core.IntegrationTests.Fakes;
 using Shedy.Core.Interfaces;
 
-namespace Shedy.Core.IntegrationTests.Pipelines;
+namespace Shedy.Core.IntegrationTests.Commands;
 
 public class UpdateOpeningTimesShould
 {
@@ -24,7 +24,7 @@ public class UpdateOpeningTimesShould
     }
 
     [Fact]
-    public async Task UpdateAvailabilityOfExistingCalendar()
+    public async Task UpdateOpeningTimesOfExistingCalendar()
     {
         // arrange
         var calendar = new CalendarBuilder()
@@ -49,6 +49,9 @@ public class UpdateOpeningTimesShould
 
         // assert
         result.OpeningHours.Should().BeEquivalentTo(command.OpeningTimes);
+        var actual = await repo.GetAsync(calendar.Id, default);
+        calendar.UpdateOpeningTimes(newAvailability);
+        actual.Should().BeEquivalentTo(calendar);
     }
 
     [Theory]
