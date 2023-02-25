@@ -80,7 +80,7 @@ public sealed class CalendarRepositoryShould : IAsyncLifetime
         // act
         var result = await repo.GetAsync(calendar.Id, default);
         result!.UpdateOpeningTimes(openingTimes);
-        await repo.SaveChangesAsync(default);
+        await repo.UpdateAsync(calendar, default);
 
         // assert
         var updatedCalendar = db.Calendars.FirstOrDefault(x => x.Id == calendar.Id);
@@ -103,7 +103,6 @@ public sealed class CalendarRepositoryShould : IAsyncLifetime
 
         // act 
         await repo.AddAsync(calendar, default);
-        await repo.SaveChangesAsync(default);
 
         // assert
         var result = await db.Calendars.FirstOrDefaultAsync(x => x.Id == calendar.Id);

@@ -1,7 +1,7 @@
 using Moq;
 using Shedy.Core.Aggregates.Calendar;
 using Shedy.Core.Builders;
-using Shedy.Core.Handlers.CreateCalendarEvent;
+using Shedy.Core.Commands.CreateCalendarEvent;
 using Shedy.Core.UnitTests.Mocks;
 
 namespace Shedy.Core.UnitTests.Handlers;
@@ -70,11 +70,8 @@ public class CreateCalendarEventHandlerShould
         await handler.Handle(command, default);
 
         // assert
-        mockRepo.Verify(x => x.AddAsync(
+        mockRepo.Verify(x => x.UpdateAsync(
             It.Is<CalendarAggregate>(y => y.Id == command.CalendarId),
-            It.IsAny<CancellationToken>()
-        ));
-        mockRepo.Verify(x => x.SaveChangesAsync(
             It.IsAny<CancellationToken>()
         ));
     }

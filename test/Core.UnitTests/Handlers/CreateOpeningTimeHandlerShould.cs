@@ -3,7 +3,7 @@ using FluentAssertions;
 using Moq;
 using Shedy.Core.Aggregates.Calendar;
 using Shedy.Core.Builders;
-using Shedy.Core.Handlers.CreateOpeningTime;
+using Shedy.Core.Commands.CreateOpeningTime;
 using Shedy.Core.UnitTests.Mocks;
 
 namespace Shedy.Core.UnitTests.Handlers;
@@ -86,11 +86,8 @@ public class CreateOpeningTimeHandlerShould
         var result = await handler.Handle(command, default);
 
         // assert
-        mockRepo.Verify(x => x.AddAsync(
+        mockRepo.Verify(x => x.UpdateAsync(
             It.Is<CalendarAggregate>(y => y.Id == command.CalendarId),
-            It.IsAny<CancellationToken>()
-        ));
-        mockRepo.Verify(x => x.SaveChangesAsync(
             It.IsAny<CancellationToken>()
         ));
     }

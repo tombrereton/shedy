@@ -19,12 +19,7 @@ public class FakeCalendarRepository : ICalendarRepository
         return Task.CompletedTask;
     }
 
-    public Task SaveChangesAsync(CancellationToken cancellationToken)
-    {
-        return Task.CompletedTask;
-    }
-
-    public Task SaveChangesAsync(CalendarAggregate calendar, CancellationToken cancellationToken)
+    public Task UpdateAsync(CalendarAggregate calendar, CancellationToken cancellationToken)
     {
         return Task.CompletedTask;
     }
