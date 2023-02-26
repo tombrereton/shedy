@@ -1,3 +1,4 @@
+using Ardalis.GuardClauses;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -11,13 +12,16 @@ public static class ConfigureInfrastructure
 {
     public static IServiceCollection AddInfrastructure(this IServiceCollection services, IConfiguration configuration)
     {
+        var dbConnectionString = configuration.GetConnectionString("Database");
+        Guard.Against.NullOrEmpty(dbConnectionString, nameof(dbConnectionString));
+        
         services.AddScoped<ICalendarRepository, CalendarRepository>();
-
         services.AddDbContext<ShedyDbContext>(options =>
+        {
             options
-                .UseNpgsql(configuration.GetConnectionString("Database"))
-                .UseSnakeCaseNamingConvention()
-        );
+                .UseNpgsql(dbConnectionString)
+                .UseSnakeCaseNamingConvention();
+        });
 
         return services;
     }

@@ -1,7 +1,10 @@
+using Mapster;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Shedy.Api.Requests;
+using Shedy.Api.Responses;
 using Shedy.Core.Commands.CreateCalendar;
+using Shedy.Core.Queries.GetCalendarEvent;
 
 namespace Shedy.Api.Controllers;
 
@@ -21,7 +24,7 @@ public class CalendarController : ControllerBase
     {
         var command = new CreateCalendar(request.UserId);
         var result = await _mediator.Send(command, cancellationToken);
-        return Ok();
-
+        var response = result.Adapt<CreateCalendarResponse>();
+        return Ok(response);
     }
 }

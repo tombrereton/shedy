@@ -1,17 +1,17 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
+using Shedy.Infrastructure.Persistence;
 
-namespace Shedy.Api.IntegrationTests.Helpers;
+namespace Shedy.Api.IntegrationTests.Extensions;
 
 public static class ServiceCollectionExtensions
 {
     public static void EnsureDbCreated<T>(this IServiceCollection services) where T : DbContext
     {
         var serviceProvider = services.BuildServiceProvider();
-
         using var scope = serviceProvider.CreateScope();
         var scopedServices = scope.ServiceProvider;
-        var context = scopedServices.GetRequiredService<T>();
-        context.Database.EnsureCreated();
+        var dbContext = scopedServices.GetRequiredService<ShedyDbContext>();
+        dbContext.Database.EnsureCreated();
     }
 }

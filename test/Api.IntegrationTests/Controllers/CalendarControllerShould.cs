@@ -1,8 +1,13 @@
 using System.Net.Http.Json;
 using AutoFixture.Xunit2;
+using FluentAssertions;
+using Microsoft.AspNetCore.Http.HttpResults;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Testing;
+using Microsoft.Extensions.DependencyInjection;
 using Shedy.Api.IntegrationTests.Helpers;
 using Shedy.Api.Requests;
+using Shedy.Infrastructure.Persistence;
 
 namespace Shedy.Api.IntegrationTests.Controllers;
 
@@ -28,8 +33,11 @@ public class CalendarControllerShould : IClassFixture<ShedyApiFactory>
 
         // assert
         result.EnsureSuccessStatusCode();
-        // var db = _factory.Services.GetRequiredService<ShedyDbContext>();
-        // var actual = db.Calendars.First(x => x.UserId == request.UserId);
-        // actual.Should().NotBeNull();
+        // result.Should().BeOfType<OkObjectResult>();
+
+        using var scope = _factory.Services.CreateScope();
+        var dbContext = scope.ServiceProvider.GetRequiredService<ShedyDbContext>();
+        var updatedCalendar = dbContext.Calendars.FirstOrDefault(x => x.UserId == request.UserId);
+        updatedCalendar.Should().NotBeNull();
     }
 }
