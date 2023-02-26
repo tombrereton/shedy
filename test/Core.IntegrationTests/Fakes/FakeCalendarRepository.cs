@@ -1,49 +1,41 @@
-using System.Text.Json;
-using Ardalis.GuardClauses;
+using Microsoft.EntityFrameworkCore;
 using Shedy.Core.Aggregates.Calendar;
 using Shedy.Core.Interfaces;
-using Xunit.Sdk;
 
 namespace Shedy.Core.IntegrationTests.Fakes;
 
 public class FakeCalendarRepository : ICalendarRepository
 {
-    private readonly List<CalendarAggregate> _calendars = new();
+    private readonly FakeDbContext _dbContext;
+
+    public FakeCalendarRepository(FakeDbContext dbContext)
+    {
+        _dbContext = dbContext;
+    }
 
     public async Task<CalendarAggregate?> GetAsync(Guid id, CancellationToken cancellationToken)
     {
-        var calendar = _calendars.FirstOrDefault(x => x.Id == id);
-        if (calendar is null)
-        {
-            throw new NullException(
-                "Calendar removed so we don't update the Calendar Reference. UpdateAsync must be called.");
-        }
-
-        _calendars.Remove(calendar);
-
-        return await ValueTask.FromResult(calendar);
+        return await _dbContext.Calendars.FirstOrDefaultAsync(x => x.Id == id, cancellationToken: cancellationToken);
     }
 
-    public Task AddAsync(CalendarAggregate calendar, CancellationToken cancellationToken)
+    public async Task AddAsync(CalendarAggregate calendar, CancellationToken cancellationToken)
     {
-        _calendars.Add(calendar);
-        return Task.CompletedTask;
+        await _dbContext.Calendars.AddAsync(calendar, cancellationToken);
+        await _dbContext.SaveChangesAsync(cancellationToken);
     }
 
-    public Task UpdateAsync(CalendarAggregate calendar, CancellationToken cancellationToken)
+    public async Task UpdateAsync(CalendarAggregate calendar, CancellationToken cancellationToken)
     {
-        var old = _calendars.Find(x => x.Id == calendar.Id);
-        _calendars.Remove(old!);
-        _calendars.Add(calendar);
-        return Task.CompletedTask;
+        await _dbContext.SaveChangesAsync(cancellationToken);
     }
 
-    public Task DeleteAsync(Guid id, CancellationToken cancellationToken)
+    public async Task DeleteAsync(Guid id, CancellationToken cancellationToken)
     {
-        var calendar = _calendars.Find(x => x.Id == id);
+        var calendar = await _dbContext.Calendars.FirstOrDefaultAsync(x => x.Id == id, cancellationToken);
         if (calendar is not null)
-            _calendars.Remove(calendar);
-
-        return Task.CompletedTask;
+        {
+            _dbContext.Calendars.Remove(calendar);
+            await _dbContext.SaveChangesAsync(cancellationToken);
+        }
     }
 }

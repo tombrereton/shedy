@@ -1,3 +1,4 @@
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Shedy.Core.Interfaces;
@@ -11,6 +12,10 @@ public static class ConfigureFakes
     {
         services.AddScoped<ICalendarRepository, FakeCalendarRepository>();
         services.AddLogging();
+        services.AddDbContext<FakeDbContext>(options =>
+            options
+                .UseInMemoryDatabase("core_integration_tests")
+        );
         
         return services;
     }

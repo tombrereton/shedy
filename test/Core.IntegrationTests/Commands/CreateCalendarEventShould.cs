@@ -27,14 +27,15 @@ public class CreateCalendarEventShould
     public async Task AddCalendarEventToExistingCalendar()
     {
         // arrange
+        var db = _services.GetRequiredService<FakeDbContext>();
         var calendar = new CalendarBuilder()
             .CreateCalendar()
             .WithNewCalendarId()
             .WithUserId(Guid.NewGuid())
             .WithDefaultOpeningHours(TimeZoneInfo.Local)
             .Build();
-        var repo = _services.GetRequiredService<ICalendarRepository>();
-        await repo.AddAsync(calendar, default);
+        await db.AddAsync(calendar, default);
+        await db.SaveChangesAsync(default);
         
         var calendarEvent = new CalendarEventBuilder()
             .CreateCalendarEvent()
@@ -50,6 +51,9 @@ public class CreateCalendarEventShould
 
         // assert
         result.Event.Should().Be(command.Event);
+        
+        var actual = db.Calendars.First(x => x.Id == calendar.Id);
+        actual.Should().BeEquivalentTo(calendar);
     }
 
     [Theory]
