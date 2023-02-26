@@ -4,12 +4,11 @@ public class CalendarAggregate
 {
     public Guid Id { get; }
     public Guid UserId { get; }
-
-    private readonly List<OpeningTime> _openingTimes = new();
-    private readonly List<CalendarEvent> _events = new();
-
     public IReadOnlyList<OpeningTime> OpeningTimes => _openingTimes.AsReadOnly();
     public IReadOnlyList<CalendarEvent> Events => _events.AsReadOnly();
+    
+    private readonly List<OpeningTime> _openingTimes = new();
+    private readonly List<CalendarEvent> _events = new();
 
     public CalendarAggregate(Guid id, Guid userId, List<OpeningTime> openingTimes)
     {

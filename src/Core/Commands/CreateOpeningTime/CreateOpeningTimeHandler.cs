@@ -19,7 +19,7 @@ public class CreateOpeningTimeHandler : IRequestHandler<CreateOpeningTime, Creat
         Guard.Against.Null(calendar, nameof(calendar));
 
         calendar.AddOpeningTime(request.OpeningTime);
-        await _repository.UpdateAsync(calendar, cancellationToken);
+        await _repository.SaveChangesAsync(cancellationToken);
 
         return new CreateOpeningTimeResult(calendar.OpeningTimes);
     }

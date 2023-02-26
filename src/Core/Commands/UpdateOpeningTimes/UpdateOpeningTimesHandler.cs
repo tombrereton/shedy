@@ -19,7 +19,7 @@ public class UpdateOpeningTimesHandler : IRequestHandler<UpdateOpeningTimes, Upd
         Guard.Against.Null(calendar, nameof(calendar));
 
         calendar.UpdateOpeningTimes(request.OpeningTimes);
-        await _repository.UpdateAsync(calendar, cancellationToken);
+        await _repository.SaveChangesAsync(cancellationToken);
 
         return new UpdateOpeningTimesResult(calendar.OpeningTimes);
     }
