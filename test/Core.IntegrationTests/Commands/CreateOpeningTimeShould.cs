@@ -44,6 +44,8 @@ public class CreateOpeningTimeShould
 
         // assert
         result.OpeningHours.First().Should().Be(command.OpeningTime);
+        var actual = db.Calendars.First(x => x.Id == calendar.Id);
+        actual.Should().BeEquivalentTo(calendar);
     }
 
     [Theory]

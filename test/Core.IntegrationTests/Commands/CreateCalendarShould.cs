@@ -2,10 +2,10 @@ using AutoFixture.Xunit2;
 using FluentAssertions;
 using FluentValidation;
 using MediatR;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Shedy.Core.Commands.CreateCalendar;
 using Shedy.Core.IntegrationTests.Fakes;
-using Shedy.Core.Interfaces;
 
 namespace Shedy.Core.IntegrationTests.Commands;
 
@@ -27,7 +27,7 @@ public class CreateCalendarShould
     {
         // arrange
         var mediator = _services.GetRequiredService<IMediator>();
-        var repo = _services.GetRequiredService<ICalendarRepository>();
+        var db = _services.GetRequiredService<FakeDbContext>();
 
         // act
         var result = await mediator.Send(command, default);
@@ -35,9 +35,9 @@ public class CreateCalendarShould
         // assert
         result.CalendarId.Should().NotBeEmpty();
 
-        var calendar = await repo.GetAsync(result.CalendarId, default);
-        calendar.Should().NotBeNull();
-        calendar!.Id.Should().Be(result.CalendarId);
+        var actual = await db.Calendars.FirstOrDefaultAsync(x => x.UserId == command.UserId);
+        actual.Should().NotBeNull();
+        actual!.Id.Should().Be(result.CalendarId);
     }
 
     [Fact]

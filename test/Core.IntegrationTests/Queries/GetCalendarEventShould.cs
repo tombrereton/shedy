@@ -38,14 +38,14 @@ public class GetCalendarEventShould
             .Build();
         calendar.AddEvent(calendarEvent);
         var db = _services.GetRequiredService<FakeDbContext>();
-        await db.AddAsync(calendar, default);
-        await db.SaveChangesAsync(default);
+        await db.AddAsync(calendar);
+        await db.SaveChangesAsync();
         
         var mediator = _services.GetRequiredService<IMediator>();
         var query = new GetCalendarEvent(calendar.Id, calendarEvent.Id);
 
         // act
-        var result = await mediator.Send(query, default);
+        var result = await mediator.Send(query);
 
         // assert
         result.Event.Should().Be(calendarEvent);
