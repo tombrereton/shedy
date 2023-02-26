@@ -27,16 +27,16 @@ public class CreateCalendarEventShould
     public async Task AddCalendarEventToExistingCalendar()
     {
         // arrange
-        var db = _services.GetRequiredService<FakeDbContext>();
         var calendar = new CalendarBuilder()
             .CreateCalendar()
             .WithNewCalendarId()
             .WithUserId(Guid.NewGuid())
             .WithDefaultOpeningHours(TimeZoneInfo.Local)
             .Build();
+        var db = _services.GetRequiredService<FakeDbContext>();
         await db.AddAsync(calendar, default);
         await db.SaveChangesAsync(default);
-        
+
         var calendarEvent = new CalendarEventBuilder()
             .CreateCalendarEvent()
             .WithStart(DateTimeOffset.Parse("2023-01-02T09:00:00Z"))
@@ -51,7 +51,7 @@ public class CreateCalendarEventShould
 
         // assert
         result.Event.Should().Be(command.Event);
-        
+
         var actual = db.Calendars.First(x => x.Id == calendar.Id);
         actual.Should().BeEquivalentTo(calendar);
     }
@@ -63,15 +63,15 @@ public class CreateCalendarEventShould
         // arrange
         var command = new CreateCalendarEvent(Guid.Empty, calendarEvent);
         var mediator = _services.GetRequiredService<IMediator>();
-    
+
         // act
         Func<Task> act = async () => { await mediator.Send(command, default); };
-    
+
         // assert
         await act.Should().ThrowAsync<ValidationException>()
             .WithMessage("*CalendarId*not*empty*");
     }
-    
+
     [Fact]
     public async Task ValidateNullCalendarEvent()
     {

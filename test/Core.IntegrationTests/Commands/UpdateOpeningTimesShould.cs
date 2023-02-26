@@ -33,8 +33,10 @@ public class UpdateOpeningTimesShould
             .WithUserId(Guid.NewGuid())
             .WithEmptyOpeningHours()
             .Build();
-        var repo = _services.GetRequiredService<ICalendarRepository>();
-        await repo.AddAsync(calendar, default);
+        var db = _services.GetRequiredService<FakeDbContext>();
+        await db.AddAsync(calendar, default);
+        await db.SaveChangesAsync(default);
+        
         var mediator = _services.GetRequiredService<IMediator>();
         var newAvailability = new OpeningTimesBuilder()
             .CreateOpeningTimes()
@@ -49,8 +51,7 @@ public class UpdateOpeningTimesShould
 
         // assert
         result.OpeningHours.Should().BeEquivalentTo(command.OpeningTimes);
-        var actual = await repo.GetAsync(calendar.Id, default);
-        calendar.UpdateOpeningTimes(newAvailability);
+        var actual = db.Calendars.First(x => x.Id == calendar.Id);
         actual.Should().BeEquivalentTo(calendar);
     }
 

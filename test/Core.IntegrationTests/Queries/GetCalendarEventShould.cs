@@ -37,8 +37,10 @@ public class GetCalendarEventShould
             .WithDefaultOpeningHours(TimeZoneInfo.Local)
             .Build();
         calendar.AddEvent(calendarEvent);
-        var repo = _services.GetRequiredService<ICalendarRepository>();
-        await repo.AddAsync(calendar, default);
+        var db = _services.GetRequiredService<FakeDbContext>();
+        await db.AddAsync(calendar, default);
+        await db.SaveChangesAsync(default);
+        
         var mediator = _services.GetRequiredService<IMediator>();
         var query = new GetCalendarEvent(calendar.Id, calendarEvent.Id);
 

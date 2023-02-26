@@ -86,9 +86,7 @@ public class CreateOpeningTimeHandlerShould
         var result = await handler.Handle(command, default);
 
         // assert
-        mockRepo.Verify(x => x.UpdateAsync(
-            It.Is<CalendarAggregate>(y => y.Id == command.CalendarId),
-            It.IsAny<CancellationToken>()
+        mockRepo.Verify(x => x.SaveChangesAsync(It.IsAny<CancellationToken>()
         ));
     }
 }

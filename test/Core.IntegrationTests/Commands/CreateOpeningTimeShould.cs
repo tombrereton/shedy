@@ -28,15 +28,16 @@ public class CreateOpeningTimeShould
     public async Task AddAvailabilityExistingCalendar(CreateOpeningTime command)
     {
         // arrange
-        var mediator = _services.GetRequiredService<IMediator>();
-        var repo = _services.GetRequiredService<ICalendarRepository>();
         var calendar = new CalendarBuilder()
             .CreateCalendar()
             .WithCalendarId(command.CalendarId)
             .WithUserId(Guid.NewGuid())
             .WithEmptyOpeningHours()
             .Build();
-        await repo.AddAsync(calendar, default);
+        var db = _services.GetRequiredService<FakeDbContext>();
+        await db.AddAsync(calendar, default);
+        await db.SaveChangesAsync(default);
+        var mediator = _services.GetRequiredService<IMediator>();
 
         // act
         var result = await mediator.Send(command, default);

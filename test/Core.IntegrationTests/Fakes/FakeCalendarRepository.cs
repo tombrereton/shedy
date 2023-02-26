@@ -21,10 +21,9 @@ public class FakeCalendarRepository : ICalendarRepository
     public async Task AddAsync(CalendarAggregate calendar, CancellationToken cancellationToken)
     {
         await _dbContext.Calendars.AddAsync(calendar, cancellationToken);
-        await _dbContext.SaveChangesAsync(cancellationToken);
     }
 
-    public async Task UpdateAsync(CalendarAggregate calendar, CancellationToken cancellationToken)
+    public async Task SaveChangesAsync(CancellationToken cancellationToken)
     {
         await _dbContext.SaveChangesAsync(cancellationToken);
     }
