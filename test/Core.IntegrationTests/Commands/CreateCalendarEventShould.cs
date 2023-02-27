@@ -7,7 +7,6 @@ using Shedy.Core.Aggregates.Calendar;
 using Shedy.Core.Builders;
 using Shedy.Core.Commands.CreateCalendarEvent;
 using Shedy.Core.IntegrationTests.Fakes;
-using Shedy.Core.Interfaces;
 
 namespace Shedy.Core.IntegrationTests.Commands;
 
@@ -19,7 +18,7 @@ public class CreateCalendarEventShould
     {
         _services = new ServiceCollection()
             .AddCore()
-            .AddFakeRepositories()
+            .AddFakeInfrastructure()
             .BuildServiceProvider();
     }
 

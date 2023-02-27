@@ -12,7 +12,7 @@ public class FakeDbContext : DbContext
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
-        var jsonOptions = new JsonSerializerOptions()
+        var jsonOptions = new JsonSerializerOptions
         {
             WriteIndented = true,
             Converters = { new TimeZoneConverter() }

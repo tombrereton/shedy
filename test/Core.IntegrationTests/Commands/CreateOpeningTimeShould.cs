@@ -19,7 +19,7 @@ public class CreateOpeningTimeShould
     {
         _services = new ServiceCollection()
             .AddCore()
-            .AddFakeRepositories()
+            .AddFakeInfrastructure()
             .BuildServiceProvider();
     }
 

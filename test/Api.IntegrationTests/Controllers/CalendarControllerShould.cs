@@ -2,7 +2,6 @@ using System.Net;
 using System.Net.Http.Json;
 using AutoFixture.Xunit2;
 using FluentAssertions;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Testing;
 using Microsoft.Extensions.DependencyInjection;
 using Shedy.Api.IntegrationTests.Helpers;
@@ -66,6 +65,6 @@ public class CalendarControllerShould : IClassFixture<ShedyApiFactory>
 
         // assert
         result.EnsureSuccessStatusCode();
-        // result.Should().BeOfType<OkObjectResult>();
+        result.StatusCode.Should().Be(HttpStatusCode.OK);
     }
 }

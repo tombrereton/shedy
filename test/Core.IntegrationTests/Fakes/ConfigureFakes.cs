@@ -8,7 +8,7 @@ namespace Shedy.Core.IntegrationTests.Fakes;
 public static class ConfigureFakes
 {
 
-    public static IServiceCollection AddFakeRepositories(this IServiceCollection services)
+    public static IServiceCollection AddFakeInfrastructure(this IServiceCollection services)
     {
         services.AddScoped<ICalendarRepository, FakeCalendarRepository>();
         services.AddLogging();

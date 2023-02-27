@@ -5,7 +5,7 @@ namespace Shedy.Core.IntegrationTests.Fakes;
 
 public class TimeZoneConverter : JsonConverter<TimeZoneInfo>
 {
-    public override TimeZoneInfo? Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
+    public override TimeZoneInfo Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
     {
         return TimeZoneInfo.FromSerializedString(reader.GetString() ?? string.Empty);
     }

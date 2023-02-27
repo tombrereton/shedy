@@ -16,7 +16,7 @@ public class GetCalendarEventShould
     {
         _services = new ServiceCollection()
             .AddCore()
-            .AddFakeRepositories()
+            .AddFakeInfrastructure()
             .BuildServiceProvider();
     }
 

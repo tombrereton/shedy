@@ -19,7 +19,7 @@ public class UpdateOpeningTimesShould
     {
         _services = new ServiceCollection()
             .AddCore()
-            .AddFakeRepositories()
+            .AddFakeInfrastructure()
             .BuildServiceProvider();
     }
 
