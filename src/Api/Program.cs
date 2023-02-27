@@ -1,5 +1,4 @@
-using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.Identity.Web;
+using Shedy.Api.Middleware;
 using Shedy.Core;
 using Shedy.Infrastructure;
 
@@ -23,6 +22,7 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 app.MapControllers();
+app.UseMiddleware<ExceptionMiddleware>();
 
 app.Run();
 

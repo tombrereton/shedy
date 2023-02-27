@@ -1,7 +1,7 @@
 using System.Text.Json;
 using System.Text.Json.Serialization;
 
-namespace Shedy.Core.IntegrationTests.Fakes;
+namespace Shedy.Core.JsonConverters;
 
 public class TimeZoneConverter : JsonConverter<TimeZoneInfo>
 {

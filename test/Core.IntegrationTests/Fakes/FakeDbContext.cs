@@ -1,6 +1,7 @@
 using System.Text.Json;
 using Microsoft.EntityFrameworkCore;
 using Shedy.Core.Aggregates.Calendar;
+using Shedy.Core.JsonConverters;
 
 namespace Shedy.Core.IntegrationTests.Fakes;
 

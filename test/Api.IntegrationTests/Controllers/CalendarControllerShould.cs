@@ -8,6 +8,7 @@ using Shedy.Api.IntegrationTests.Helpers;
 using Shedy.Api.Requests;
 using Shedy.Core.Builders;
 using Shedy.Infrastructure.Persistence;
+using Xunit.Abstractions;
 
 namespace Shedy.Api.IntegrationTests.Controllers;
 
@@ -15,9 +16,9 @@ public class CalendarControllerShould : IClassFixture<ShedyApiFactory>
 {
     private readonly WebApplicationFactory<Program> _factory;
 
-    public CalendarControllerShould(ShedyApiFactory factory)
+    public CalendarControllerShould(ShedyApiFactory factory, ITestOutputHelper output)
     {
-        _factory = factory;
+        _factory = factory.WithTestLogging(output);
     }
 
     [Theory]
@@ -26,7 +27,7 @@ public class CalendarControllerShould : IClassFixture<ShedyApiFactory>
     {
         // arrange
         var client = _factory.CreateDefaultClient();
-        var uri = "calendar";
+        var uri = "api/calendars";
 
         // act
         var result = await client.PostAsJsonAsync(uri, request);
@@ -35,7 +36,7 @@ public class CalendarControllerShould : IClassFixture<ShedyApiFactory>
         result.EnsureSuccessStatusCode();
         result.StatusCode.Should().Be(HttpStatusCode.Created);
         result.Headers.Should().ContainKey("Location");
-        result.Headers.GetValues("Location").Should().ContainMatch("*/Calendar/*");
+        result.Headers.GetValues("Location").Should().ContainMatch("*api/Calendars/*");
 
         using var scope = _factory.Services.CreateScope();
         var dbContext = scope.ServiceProvider.GetRequiredService<ShedyDbContext>();
@@ -58,7 +59,7 @@ public class CalendarControllerShould : IClassFixture<ShedyApiFactory>
         await dbContext.Calendars.AddAsync(calendar);
         await dbContext.SaveChangesAsync();
         var client = _factory.CreateDefaultClient();
-        var uri = $"calendar/{calendar.Id}";
+        var uri = $"api/calendars/{calendar.Id}";
 
         // act
         var result = await client.GetAsync(uri);
@@ -66,5 +67,36 @@ public class CalendarControllerShould : IClassFixture<ShedyApiFactory>
         // assert
         result.EnsureSuccessStatusCode();
         result.StatusCode.Should().Be(HttpStatusCode.OK);
+    }
+    
+    [Theory]
+    [AutoData]
+    public async Task CreateCalendarEvent(CreateCalendarEventRequest request)
+    {
+        // arrange
+        var calendar = new CalendarBuilder()
+            .CreateCalendar()
+            .WithNewCalendarId()
+            .WithUserId(Guid.NewGuid())
+            .WithDefaultOpeningHours(TimeZoneInfo.Local)
+            .Build();
+        using var scope = _factory.Services.CreateScope();
+        var dbContext = scope.ServiceProvider.GetRequiredService<ShedyDbContext>();
+        await dbContext.Calendars.AddAsync(calendar);
+        await dbContext.SaveChangesAsync();
+        var client = _factory.CreateDefaultClient();
+        var uri = $"api/calendars/{calendar.Id}/events";
+
+        // act
+        var result = await client.PostAsJsonAsync(uri, request);
+
+        // assert
+        result.EnsureSuccessStatusCode();
+        result.StatusCode.Should().Be(HttpStatusCode.Created);
+        result.Headers.Should().ContainKey("Location");
+        result.Headers.GetValues("Location").Should().ContainMatch("*api/events/*");
+
+        var updatedCalendar = dbContext.Calendars.FirstOrDefault(x => x.Id == calendar.Id);
+        updatedCalendar.Should().NotBeNull();
     }
 }
