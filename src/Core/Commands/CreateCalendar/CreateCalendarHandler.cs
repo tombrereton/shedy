@@ -25,6 +25,6 @@ public class CreateCalendarHandler : IRequestHandler<CreateCalendar, CreateCalen
         await _repository.AddAsync(calendar, cancellationToken);
         await _repository.SaveChangesAsync(cancellationToken);
 
-        return new CreateCalendarResult(calendar.UserId, calendar.Id);
+        return new CreateCalendarResult(calendar.UserId, calendar.Id, calendar);
     }
 }
