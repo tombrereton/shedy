@@ -1,5 +1,5 @@
 using Moq;
-using Shedy.Application.Commands.CreateCalendarEvent;
+using Shedy.Application.Handlers.Commands.CreateCalendarEvent;
 using Shedy.Core.UnitTests.Mocks;
 using Shedy.Domain.Builders;
 

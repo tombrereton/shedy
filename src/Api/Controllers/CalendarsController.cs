@@ -3,11 +3,11 @@ using System.Net.Mime;
 using Mapster;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
-using Shedy.Api.Requests;
-using Shedy.Api.Responses;
-using Shedy.Application.Commands.CreateCalendar;
-using Shedy.Application.Commands.CreateCalendarEvent;
-using Shedy.Application.Queries.GetCalendar;
+using Shedy.Application.Handlers.Commands.CreateCalendar;
+using Shedy.Application.Handlers.Commands.CreateCalendarEvent;
+using Shedy.Application.Handlers.Queries.GetCalendar;
+using Shedy.Contracts.Requests;
+using Shedy.Contracts.Responses;
 using Shedy.Domain.Aggregates.Calendar;
 
 namespace Shedy.Api.Controllers;

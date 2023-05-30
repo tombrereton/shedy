@@ -3,7 +3,7 @@ using FluentAssertions;
 using FluentValidation;
 using MediatR;
 using Microsoft.Extensions.DependencyInjection;
-using Shedy.Application.Commands.CreateOpeningTime;
+using Shedy.Application.Handlers.Commands.CreateOpeningTime;
 using Shedy.Application.IntegrationTests.Fakes;
 using Shedy.Domain.Aggregates.Calendar;
 using Shedy.Domain.Builders;

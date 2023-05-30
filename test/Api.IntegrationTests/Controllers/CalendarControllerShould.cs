@@ -13,7 +13,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Shedy.Api.IntegrationTests.Extensions;
 using Shedy.Api.IntegrationTests.Helpers;
-using Shedy.Api.Requests;
+using Shedy.Contracts.Requests;
 using Shedy.Domain.Aggregates.Calendar;
 using Shedy.Domain.Builders;
 using Shedy.Infrastructure.Persistence;

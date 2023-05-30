@@ -4,7 +4,7 @@ using FluentValidation;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
-using Shedy.Application.Commands.CreateCalendar;
+using Shedy.Application.Handlers.Commands.CreateCalendar;
 using Shedy.Application.IntegrationTests.Fakes;
 
 namespace Shedy.Application.IntegrationTests.Commands;

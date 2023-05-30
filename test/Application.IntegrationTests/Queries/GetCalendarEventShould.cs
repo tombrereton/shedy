@@ -1,8 +1,8 @@
 using FluentAssertions;
 using MediatR;
 using Microsoft.Extensions.DependencyInjection;
+using Shedy.Application.Handlers.Queries.GetCalendarEvent;
 using Shedy.Application.IntegrationTests.Fakes;
-using Shedy.Application.Queries.GetCalendarEvent;
 using Shedy.Domain.Builders;
 
 namespace Shedy.Application.IntegrationTests.Queries;

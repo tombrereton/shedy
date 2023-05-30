@@ -1,7 +1,7 @@
 using AutoFixture.Xunit2;
 using FluentAssertions;
 using Moq;
-using Shedy.Application.Commands.CreateOpeningTime;
+using Shedy.Application.Handlers.Commands.CreateOpeningTime;
 using Shedy.Core.UnitTests.Mocks;
 using Shedy.Domain.Builders;
 

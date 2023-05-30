@@ -4,12 +4,14 @@
         <TargetFramework>net7.0</TargetFramework>
         <ImplicitUsings>enable</ImplicitUsings>
         <Nullable>enable</Nullable>
-        <AssemblyName>Shedy.Domain</AssemblyName>
-        <RootNamespace>Shedy.Domain</RootNamespace>
+        <AssemblyName>Shedy.Contracts</AssemblyName>
+        <RootNamespace>Shedy.Contracts</RootNamespace>
     </PropertyGroup>
 
+
     <ItemGroup>
-        <PackageReference Include="Ardalis.GuardClauses" Version="4.0.1" />
+        <ProjectReference Include="..\Domain\Domain.csproj" />
     </ItemGroup>
+
 
 </Project>
