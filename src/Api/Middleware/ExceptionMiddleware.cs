@@ -19,22 +19,28 @@ public class ExceptionMiddleware
         {
             await _next(httpContext);
         }
+        catch (ArgumentException ex)
+        {
+            _logger.LogError("Argument exception: {Ex}", ex);
+            await HandleExceptionAsync(httpContext, HttpStatusCode.BadRequest, "Incorrect Argument");
+        }
         catch (Exception ex)
         {
-            _logger.LogError($"Something went wrong: {ex}");
-            await HandleExceptionAsync(httpContext, ex);
+            _logger.LogError("Something went wrong: {Ex}", ex);
+            await HandleExceptionAsync(httpContext, HttpStatusCode.InternalServerError, "Internal Server Error");
         }
     }
 
-    private async Task HandleExceptionAsync(HttpContext context, Exception exception)
+    private async Task HandleExceptionAsync(HttpContext context, HttpStatusCode statusCode, string message)
     {
         context.Response.ContentType = "application/json";
-        context.Response.StatusCode = (int)HttpStatusCode.InternalServerError;
+        context.Response.StatusCode = (int)statusCode;
 
         await context.Response.WriteAsync(new ErrorDetails
         {
-            StatusCode = context.Response.StatusCode,
-            Message = "Internal Server Error from the custom middleware."
+            Title = "Title",
+            Status = context.Response.StatusCode,
+            Details = message
         }.ToString());
     }
 }

@@ -25,6 +25,10 @@ public class CalendarAggregateConfiguration : IEntityTypeConfiguration<CalendarA
         builder
             .Property(x => x.UserId)
             .IsRequired();
+        
+        builder
+            .Property(x => x.Version)
+            .IsRowVersion();
     }
 
     private static void ConfigureCalendarEvents(EntityTypeBuilder<CalendarAggregate> builder)

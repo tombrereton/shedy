@@ -23,6 +23,11 @@ public class FakeCalendarRepository : ICalendarRepository
         await _dbContext.Calendars.AddAsync(calendar, cancellationToken);
     }
 
+    public void Update(CalendarAggregate calendar)
+    {
+        throw new NotImplementedException();
+    }
+
     public async Task SaveChangesAsync(CancellationToken cancellationToken)
     {
         await _dbContext.SaveChangesAsync(cancellationToken);

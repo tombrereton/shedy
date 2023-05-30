@@ -16,12 +16,17 @@ public class CalendarRepository : ICalendarRepository
 
     public async Task<CalendarAggregate?> GetAsync(Guid id, CancellationToken cancellationToken)
     {
-        return await _dbContext.Calendars.FirstOrDefaultAsync(x => x.Id == id, cancellationToken);
+        return await _dbContext.Calendars.AsTracking().FirstOrDefaultAsync(x => x.Id == id, cancellationToken);
     }
 
     public async Task AddAsync(CalendarAggregate calendar, CancellationToken cancellationToken)
     {
         await _dbContext.Calendars.AddAsync(calendar, cancellationToken);
+    }
+
+    public void Update(CalendarAggregate calendar)
+    {
+        _dbContext.Calendars.Update(calendar);
     }
 
     public async Task SaveChangesAsync(CancellationToken cancellationToken)

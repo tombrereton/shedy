@@ -13,7 +13,7 @@ public static class ConfigureInfrastructure
     public static IServiceCollection AddInfrastructure(this IServiceCollection services, IConfiguration configuration)
     {
         var dbConnectionString = configuration.GetConnectionString("Database");
-        Guard.Against.NullOrEmpty(dbConnectionString, nameof(dbConnectionString));
+        // Guard.Against.NullOrEmpty(dbConnectionString, nameof(dbConnectionString));
         
         services.AddScoped<ICalendarRepository, CalendarRepository>();
         services.AddDbContext<ShedyDbContext>(options =>

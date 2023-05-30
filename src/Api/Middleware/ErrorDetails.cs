@@ -4,8 +4,11 @@ namespace Shedy.Api.Middleware
 {
     public class ErrorDetails
     {
-        public int StatusCode { get; set; }
-        public string? Message { get; set; }
+        public string Title { get; set; }
+        public int Status { get; set; }
+        public string? Details { get; set; }
+        public string? Errors { get; set; }
+        
 
         public override string ToString()
         {

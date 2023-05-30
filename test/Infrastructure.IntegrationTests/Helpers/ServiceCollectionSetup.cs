@@ -1,12 +1,8 @@
 using DotNet.Testcontainers.Builders;
 using DotNet.Testcontainers.Configurations;
 using DotNet.Testcontainers.Containers;
-using FluentAssertions;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Shedy.Core.Builders;
-using Shedy.Core.Interfaces;
 using Shedy.Infrastructure.Persistence;
 
 #pragma warning disable CS0618

@@ -11,7 +11,7 @@ public class CreateCalendarEventHandlerShould
     [Fact]
     public async Task GetCalendarFromRepository()
     {
-        // act
+        // arrange
         var calendar = new CalendarBuilder()
             .CreateCalendar()
             .WithNewCalendarId()
@@ -29,6 +29,7 @@ public class CreateCalendarEventHandlerShould
             .WithDurationInMinutes(30)
             .WithTimeZone(TimeZoneInfo.Local)
             .Build();
+
         var command = new CreateCalendarEvent(calendar.Id, calendarEvent);
         var handler = new CreateCalendarEventHandler(mockRepo.Object);
 
@@ -41,7 +42,7 @@ public class CreateCalendarEventHandlerShould
             It.IsAny<CancellationToken>()
         ));
     }
-    
+
     [Fact]
     public async Task SaveCalendarToRepository()
     {
