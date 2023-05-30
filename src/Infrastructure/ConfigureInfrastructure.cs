@@ -1,8 +1,7 @@
-using Ardalis.GuardClauses;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Shedy.Core.Interfaces;
+using Shedy.Application.Interfaces;
 using Shedy.Infrastructure.Persistence;
 using Shedy.Infrastructure.Repositories;
 

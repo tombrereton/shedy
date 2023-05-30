@@ -1,5 +1,5 @@
 using System.Text.Json.Serialization;
-using Shedy.Core.JsonConverters;
+using Shedy.Application.JsonConverters;
 
 namespace Shedy.Api.Requests;
 

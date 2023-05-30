@@ -1,6 +1,6 @@
 using Microsoft.EntityFrameworkCore;
-using Shedy.Core.Aggregates.Calendar;
-using Shedy.Core.Interfaces;
+using Shedy.Application.Interfaces;
+using Shedy.Domain.Aggregates.Calendar;
 using Shedy.Infrastructure.Persistence;
 
 namespace Shedy.Infrastructure.Repositories;

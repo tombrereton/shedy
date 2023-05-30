@@ -1,6 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using Shedy.Core.Aggregates.Calendar;
+using Shedy.Domain.Aggregates.Calendar;
 
 namespace Shedy.Infrastructure.Persistence;
 

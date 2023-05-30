@@ -5,10 +5,10 @@ using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Shedy.Api.Requests;
 using Shedy.Api.Responses;
-using Shedy.Core.Aggregates.Calendar;
-using Shedy.Core.Commands.CreateCalendar;
-using Shedy.Core.Commands.CreateCalendarEvent;
-using Shedy.Core.Queries.GetCalendar;
+using Shedy.Application.Commands.CreateCalendar;
+using Shedy.Application.Commands.CreateCalendarEvent;
+using Shedy.Application.Queries.GetCalendar;
+using Shedy.Domain.Aggregates.Calendar;
 
 namespace Shedy.Api.Controllers;
 

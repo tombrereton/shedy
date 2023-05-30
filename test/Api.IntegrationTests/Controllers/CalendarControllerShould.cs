@@ -14,8 +14,8 @@ using Microsoft.Extensions.DependencyInjection;
 using Shedy.Api.IntegrationTests.Extensions;
 using Shedy.Api.IntegrationTests.Helpers;
 using Shedy.Api.Requests;
-using Shedy.Core.Aggregates.Calendar;
-using Shedy.Core.Builders;
+using Shedy.Domain.Aggregates.Calendar;
+using Shedy.Domain.Builders;
 using Shedy.Infrastructure.Persistence;
 using Xunit.Abstractions;
 

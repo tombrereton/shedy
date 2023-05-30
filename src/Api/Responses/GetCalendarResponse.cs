@@ -1,4 +1,4 @@
-using Shedy.Core.Aggregates.Calendar;
+using Shedy.Domain.Aggregates.Calendar;
 
 namespace Shedy.Api.Responses;
 

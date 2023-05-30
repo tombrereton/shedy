@@ -5,8 +5,8 @@
 // using Microsoft.AspNetCore.Mvc;
 // using Shedy.Api.Requests;
 // using Shedy.Api.Responses;
-// using Shedy.Core.Commands.CreateCalendar;
-// using Shedy.Core.Queries.GetCalendar;
+// using Shedy.Domain.Commands.CreateCalendar;
+// using Shedy.Domain.Queries.GetCalendar;
 //
 // namespace Shedy.Api.Controllers;
 //

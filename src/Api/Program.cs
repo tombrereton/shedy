@@ -1,11 +1,11 @@
 using Shedy.Api.Middleware;
-using Shedy.Core;
+using Shedy.Application;
 using Shedy.Infrastructure;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-builder.Services.AddCore();
+builder.Services.AddApplication();
 builder.Services.AddInfrastructure(builder.Configuration);
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
@@ -26,4 +26,7 @@ app.UseMiddleware<ExceptionMiddleware>();
 
 app.Run();
 
-public partial class Program{}
+namespace Shedy.Api
+{
+    public partial class Program{}
+}
