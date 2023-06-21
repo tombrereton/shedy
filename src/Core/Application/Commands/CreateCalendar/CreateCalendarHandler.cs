@@ -1,5 +1,6 @@
 using MediatR;
 using Shedy.Core.Builders;
+using Shedy.Core.Domain.Builders;
 using Shedy.Core.Interfaces;
 
 namespace Shedy.Core.Commands.CreateCalendar;

@@ -1,5 +1,6 @@
 using FluentAssertions;
 using Shedy.Core.Builders;
+using Shedy.Core.Domain.Builders;
 
 namespace Shedy.Core.UnitTests.Calendar;
 

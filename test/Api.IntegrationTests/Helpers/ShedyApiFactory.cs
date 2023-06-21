@@ -7,12 +7,13 @@ using Microsoft.AspNetCore.TestHost;
 using Microsoft.Extensions.Configuration;
 using Shedy.Api.IntegrationTests.Extensions;
 using Shedy.Infrastructure.Persistence;
+using Xunit.Abstractions;
 
 #pragma warning disable CS0618
 
 namespace Shedy.Api.IntegrationTests.Helpers;
 
-public class ShedyApiFactory : WebApplicationFactory<Program>, IAsyncLifetime
+public class ShedyApiFactory<TProgram> : WebApplicationFactory<TProgram>, IAsyncLifetime where TProgram : class
 {
     private static readonly PostgreSqlTestcontainerConfiguration ContainerConfig = new()
     {
@@ -24,6 +25,7 @@ public class ShedyApiFactory : WebApplicationFactory<Program>, IAsyncLifetime
     private readonly TestcontainerDatabase _dbContainer = new ContainerBuilder<PostgreSqlTestcontainer>()
         .WithDatabase(ContainerConfig)
         .Build();
+
 
     protected override void ConfigureWebHost(IWebHostBuilder builder)
     {

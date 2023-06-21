@@ -6,6 +6,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Shedy.Core.Aggregates.Calendar;
 using Shedy.Core.Builders;
 using Shedy.Core.Commands.CreateOpeningTime;
+using Shedy.Core.Domain.Builders;
 using Shedy.Core.IntegrationTests.Fakes;
 using Shedy.Core.Interfaces;
 

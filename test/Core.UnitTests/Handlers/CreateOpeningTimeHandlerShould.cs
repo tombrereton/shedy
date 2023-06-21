@@ -4,6 +4,7 @@ using Moq;
 using Shedy.Core.Aggregates.Calendar;
 using Shedy.Core.Builders;
 using Shedy.Core.Commands.CreateOpeningTime;
+using Shedy.Core.Domain.Builders;
 using Shedy.Core.UnitTests.Mocks;
 
 namespace Shedy.Core.UnitTests.Handlers;

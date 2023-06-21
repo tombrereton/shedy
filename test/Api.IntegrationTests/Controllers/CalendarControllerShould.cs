@@ -1,77 +1,76 @@
 using System.Net;
 using System.Net.Http.Json;
 using AutoFixture.Xunit2;
-using DotNet.Testcontainers.Builders;
-using DotNet.Testcontainers.Configurations;
-using DotNet.Testcontainers.Containers;
 using FluentAssertions;
 using Mapster;
-using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc.Testing;
-using Microsoft.AspNetCore.TestHost;
-using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Shedy.Api.IntegrationTests.Extensions;
 using Shedy.Api.IntegrationTests.Helpers;
 using Shedy.Api.Requests;
 using Shedy.Core.Aggregates.Calendar;
 using Shedy.Core.Builders;
+using Shedy.Core.Domain.Builders;
 using Shedy.Infrastructure.Persistence;
-using Xunit.Abstractions;
 
 namespace Shedy.Api.IntegrationTests.Controllers;
 
-public class CalendarControllerShould : WebApplicationFactory<Program>, IAsyncLifetime
+public class CalendarControllerShould : IClassFixture<ShedyApiFactory<Program>>
 {
     private readonly WebApplicationFactory<Program> _factory;
 
-    private static readonly PostgreSqlTestcontainerConfiguration ContainerConfig = new()
+    public CalendarControllerShould(ShedyApiFactory<Program> factory)
     {
-        Database = "test",
-        Username = "shedy",
-        Password = "postgres",
-    };
-
-    private readonly TestcontainerDatabase _dbContainer = new ContainerBuilder<PostgreSqlTestcontainer>()
-        .WithDatabase(ContainerConfig)
-        .Build();
-
-    protected override void ConfigureWebHost(IWebHostBuilder builder)
-    {
-        builder.UseConfiguration(CreateConfig());
-        builder.ConfigureTestServices(services => services.EnsureDbCreated<ShedyDbContext>());
-        builder.UseEnvironment("Development");
+        _factory = factory;
     }
+    // private readonly WebApplicationFactory<Program> _factory;
 
-    private IConfigurationRoot CreateConfig()
-    {
-        var config = new ConfigurationBuilder()
-            .AddJsonFile("appsettings.json")
-            .AddInMemoryCollection(CreateInMemoryConfig())
-            .Build();
-        return config;
-    }
+    // private static readonly PostgreSqlTestcontainerConfiguration ContainerConfig = new()
+    // {
+    //     Database = "test",
+    //     Username = "shedy",
+    //     Password = "postgres",
+    // };
+    //
+    // private readonly TestcontainerDatabase _dbContainer = new ContainerBuilder<PostgreSqlTestcontainer>()
+    //     .WithDatabase(ContainerConfig)
+    //     .Build();
+    //
+    // protected override void ConfigureWebHost(IWebHostBuilder builder)
+    // {
+    //     builder.UseConfiguration(CreateConfig());
+    //     builder.ConfigureTestServices(services => services.EnsureDbCreated<ShedyDbContext>());
+    //     builder.UseEnvironment("Development");
+    // }
+    //
+    // private IConfigurationRoot CreateConfig()
+    // {
+    //     var config = new ConfigurationBuilder()
+    //         .AddJsonFile("appsettings.json")
+    //         .AddInMemoryCollection(CreateInMemoryConfig())
+    //         .Build();
+    //     return config;
+    // }
+    //
+    // public async Task InitializeAsync()
+    // {
+    //     await _dbContainer.StartAsync();
+    // }
+    //
+    // public new async Task DisposeAsync()
+    // {
+    //     await _dbContainer.DisposeAsync();
+    // }
+    //
+    // private KeyValuePair<string, string?>[] CreateInMemoryConfig()
+    // {
+    //     return new KeyValuePair<string, string?>[]
+    //         { new("ConnectionStrings:Database", _dbContainer.ConnectionString) };
+    // }
 
-    public async Task InitializeAsync()
-    {
-        await _dbContainer.StartAsync();
-    }
-
-    public new async Task DisposeAsync()
-    {
-        await _dbContainer.DisposeAsync();
-    }
-
-    private KeyValuePair<string, string?>[] CreateInMemoryConfig()
-    {
-        return new KeyValuePair<string, string?>[]
-            { new("ConnectionStrings:Database", _dbContainer.ConnectionString) };
-    }
-
-    public CalendarControllerShould(ShedyApiFactory factory, ITestOutputHelper output)
-    {
-        _factory = factory.WithTestLogging(output);
-    }
+    // public CalendarControllerShould(ShedyApiFactory factory, ITestOutputHelper output)
+    // {
+    //     _factory = factory.WithTestLogging(output);
+    // }
 
     [Theory]
     [AutoData]

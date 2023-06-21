@@ -2,6 +2,7 @@ using FluentAssertions;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Shedy.Core.Builders;
+using Shedy.Core.Domain.Builders;
 using Shedy.Core.Interfaces;
 using Shedy.Infrastructure.IntegrationTests.Helpers;
 using Shedy.Infrastructure.Persistence;

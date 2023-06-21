@@ -1,7 +1,8 @@
 using Ardalis.GuardClauses;
 using Shedy.Core.Aggregates.Calendar;
+using Shedy.Core.Builders;
 
-namespace Shedy.Core.Builders;
+namespace Shedy.Core.Domain.Builders;
 
 public class CalendarBuilder
 {
