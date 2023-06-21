@@ -2,13 +2,13 @@ namespace Shedy.Core.Aggregates.Calendar;
 
 public record CalendarEvent(
     Guid Id,
-    DateTimeOffset Start,
-    DateTimeOffset Finish,
-    TimeZoneInfo TimeZone,
-    string Title,
-    string Notes,
-    string Url,
-    string Location
+    // DateTimeOffset Start,
+    // DateTimeOffset Finish,
+    // TimeZoneInfo TimeZone,
+    string Title
+    // string Notes,
+    // string Url,
+    // string Location
     // Recurrence Recurrence,
     // IEnumerable<Attendee> Attendees
     // Alert? Alert = null

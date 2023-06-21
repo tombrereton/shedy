@@ -19,7 +19,7 @@ public class CalendarEventBuilder
         _start = start;
         return this;
     }
-    
+
     public CalendarEventBuilder WithFinish(DateTimeOffset finish)
     {
         _finish = finish;
@@ -43,7 +43,7 @@ public class CalendarEventBuilder
         Guard.Against.Null(_start, nameof(_start));
         Guard.Against.Null(_finish, nameof(_finish));
         Guard.Against.Null(_timeZone, nameof(_timeZone));
-        
+
         var id = Guid.NewGuid();
         var title = "title";
         var notes = "description";
@@ -51,6 +51,7 @@ public class CalendarEventBuilder
         string location = "";
         var recurrence = new Recurrence(false);
         var attendees = new List<Attendee>();
-        return new CalendarEvent(id, _start, _finish, _timeZone, title, notes, url, location);
+        // return new CalendarEvent(id, _start, _finish, _timeZone, title, notes, url, location);
+        return new CalendarEvent(id, title);
     }
 }

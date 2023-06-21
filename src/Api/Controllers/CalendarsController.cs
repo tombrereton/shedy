@@ -34,7 +34,7 @@ public class CalendarsController : ControllerBase
         var result = await _mediator.Send(command, cancellationToken);
         var response = result.Adapt<CreateCalendarResponse>();
 
-        var routeValues = new { calendarId = response.Calendar.Id };
+        var routeValues = new { calendarId = response.CalendarId };
         return CreatedAtAction("Get", routeValues, response);
     }
 
@@ -62,7 +62,7 @@ public class CalendarsController : ControllerBase
         var result = await _mediator.Send(command, cancellationToken);
         var response = result.Adapt<CreateCalendarResponse>();
 
-        var routeValues = new { calendarId = response.Calendar.Id };
+        var routeValues = new { calendarId = response.CalendarId };
         return CreatedAtAction("Get", routeValues, response);
     }
 }

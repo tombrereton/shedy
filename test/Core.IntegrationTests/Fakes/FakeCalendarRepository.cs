@@ -1,5 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using Shedy.Core.Aggregates.Calendar;
+using Shedy.Core.Domain.Aggregates.Calendar;
 using Shedy.Core.Interfaces;
 
 namespace Shedy.Core.IntegrationTests.Fakes;

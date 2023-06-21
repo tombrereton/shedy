@@ -53,6 +53,12 @@ public sealed class CalendarRepositoryShould : ServiceCollectionSetup
             .WithTimeZone(TimeZoneInfo.Local)
             .Build();
         
+        var calendarEvent = new CalendarEventBuilder()
+            .CreateCalendarEvent()
+            .WithStart(DateTimeOffset.Parse("2023-01-02T09:00:00Z"))
+            .WithDurationInMinutes(30)
+            .WithTimeZone(TimeZoneInfo.Local)
+            .Build();
         var db = Services.GetRequiredService<ShedyDbContext>();
         await db.Calendars.AddAsync(calendar);
         await db.SaveChangesAsync();
@@ -61,7 +67,7 @@ public sealed class CalendarRepositoryShould : ServiceCollectionSetup
 
         // act
         var result = await repo.GetAsync(calendar.Id, default);
-        result!.UpdateOpeningTimes(openingTimes);
+        result!.AddEvent(calendarEvent);
         await repo.SaveChangesAsync(default);
 
         // assert

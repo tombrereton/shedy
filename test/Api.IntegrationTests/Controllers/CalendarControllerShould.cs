@@ -9,6 +9,7 @@ using Shedy.Api.IntegrationTests.Helpers;
 using Shedy.Api.Requests;
 using Shedy.Core.Aggregates.Calendar;
 using Shedy.Core.Builders;
+using Shedy.Core.Domain.Aggregates.Calendar;
 using Shedy.Core.Domain.Builders;
 using Shedy.Infrastructure.Persistence;
 
@@ -148,7 +149,7 @@ public class CalendarControllerShould : IClassFixture<ShedyApiFactory<Program>>
         result.EnsureSuccessStatusCode();
         result.StatusCode.Should().Be(HttpStatusCode.Created);
         result.Headers.Should().ContainKey("Location");
-        result.Headers.GetValues("Location").Should().ContainMatch("*api/events/*");
+        result.Headers.GetValues("Location").Should().ContainMatch("*api/Calendars/*");
 
         // var updatedCalendar = dbContext.Calendars.FirstOrDefault(x => x.Id == calendar.Id);
         // updatedCalendar.Should().NotBeNull();

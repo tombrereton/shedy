@@ -1,6 +1,7 @@
 using Ardalis.GuardClauses;
 using Shedy.Core.Aggregates.Calendar;
 using Shedy.Core.Builders;
+using Shedy.Core.Domain.Aggregates.Calendar;
 
 namespace Shedy.Core.Domain.Builders;
 
@@ -8,6 +9,7 @@ public class CalendarBuilder
 {
     private Guid _calendarId;
     private List<OpeningTime> _openingHours = new();
+    private List<CalendarEvent> _events = new();
     private Guid _userId;
 
     public CalendarBuilder CreateCalendar()
@@ -56,6 +58,6 @@ public class CalendarBuilder
         Guard.Against.NullOrEmpty(_calendarId, nameof(_calendarId));
         Guard.Against.NullOrEmpty(_userId, nameof(_userId));
 
-        return new CalendarAggregate(_calendarId, _userId, _openingHours);
+        return new CalendarAggregate(_calendarId, _userId, _openingHours, _events);
     }
 }

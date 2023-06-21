@@ -19,7 +19,7 @@ public class CreateCalendarEventHandler : IRequestHandler<CreateCalendarEvent, C
         Guard.Against.Null(calendar, nameof(calendar));
         
         calendar.AddEvent(request.Event);
-        _repository.Update(calendar);
+        // _repository.Update(calendar);
         await _repository.SaveChangesAsync(cancellationToken);
         
         return new CreateCalendarEventResult(request.CalendarId, request.Event);

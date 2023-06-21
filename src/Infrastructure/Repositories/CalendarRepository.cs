@@ -1,5 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using Shedy.Core.Aggregates.Calendar;
+using Shedy.Core.Domain.Aggregates.Calendar;
 using Shedy.Core.Interfaces;
 using Shedy.Infrastructure.Persistence;
 
@@ -16,7 +17,7 @@ public class CalendarRepository : ICalendarRepository
 
     public async Task<CalendarAggregate?> GetAsync(Guid id, CancellationToken cancellationToken)
     {
-        return await _dbContext.Calendars.AsTracking().FirstOrDefaultAsync(x => x.Id == id, cancellationToken);
+        return await _dbContext.Calendars.FirstOrDefaultAsync(x => x.Id == id, cancellationToken);
     }
 
     public async Task AddAsync(CalendarAggregate calendar, CancellationToken cancellationToken)

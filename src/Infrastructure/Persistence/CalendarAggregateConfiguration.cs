@@ -1,6 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using Shedy.Core.Aggregates.Calendar;
+using Shedy.Core.Domain.Aggregates.Calendar;
 
 namespace Shedy.Infrastructure.Persistence;
 
@@ -25,45 +26,51 @@ public class CalendarAggregateConfiguration : IEntityTypeConfiguration<CalendarA
         builder
             .Property(x => x.UserId)
             .IsRequired();
-        
-        builder
-            .Property(x => x.Version)
-            .IsRowVersion();
     }
 
     private static void ConfigureCalendarEvents(EntityTypeBuilder<CalendarAggregate> builder)
     {
+        builder.Navigation(s => s.Events).Metadata.SetField("_events");
+        builder.Navigation(s => s.Events).UsePropertyAccessMode(PropertyAccessMode.Field);
         builder
             .OwnsMany(x => x.Events, ownedBuilder =>
             {
                 ConfigureAttendees(ownedBuilder);
-                
+
+                // ownedBuilder
+                //     .WithOwner()
+                //     .HasForeignKey("OwnerId");
+
                 ownedBuilder
                     .HasKey(x => x.Id);
 
                 ownedBuilder
-                    .Property(x => x.Start)
-                    .IsRequired();
+                    .Property(x => x.Id)
+                    .ValueGeneratedNever();
 
-                ownedBuilder
-                    .Property(x => x.Finish)
-                    .IsRequired();
-
-                ownedBuilder
-                    .Property(x => x.TimeZone)
-                    .HasConversion(
-                        x => x.ToSerializedString(),
-                        x => TimeZoneInfo.FromSerializedString(x)
-                    )
-                    .IsRequired();
+                // ownedBuilder
+                //     .Property(x => x.Start)
+                //     .IsRequired();
+                //
+                // ownedBuilder
+                //     .Property(x => x.Finish)
+                //     .IsRequired();
+                //
+                // ownedBuilder
+                //     .Property(x => x.TimeZone)
+                //     .HasConversion(
+                //         x => x.ToSerializedString(),
+                //         x => TimeZoneInfo.FromSerializedString(x)
+                //     )
+                //     .IsRequired();
 
                 ownedBuilder
                     .Property(x => x.Title)
                     .HasMaxLength(500);
 
-                ownedBuilder
-                    .Property(x => x.Notes)
-                    .HasMaxLength(3000);
+                // ownedBuilder
+                //     .Property(x => x.Notes)
+                //     .HasMaxLength(3000);
             });
     }
 
@@ -83,9 +90,15 @@ public class CalendarAggregateConfiguration : IEntityTypeConfiguration<CalendarA
 
     private static void ConfigureOpeningTimes(EntityTypeBuilder<CalendarAggregate> builder)
     {
+        builder.Navigation(s => s.OpeningTimes).Metadata.SetField("_openingTimes");
+        builder.Navigation(s => s.OpeningTimes).UsePropertyAccessMode(PropertyAccessMode.Field);
         builder
             .OwnsMany(x => x.OpeningTimes, ownedBuilder =>
             {
+                ownedBuilder
+                    .WithOwner()
+                    .HasForeignKey("OwnerId");
+
                 ownedBuilder
                     .Property(x => x.Day)
                     .IsRequired();

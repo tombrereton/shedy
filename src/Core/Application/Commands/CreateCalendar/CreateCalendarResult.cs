@@ -1,4 +1,5 @@
 using Shedy.Core.Aggregates.Calendar;
+using Shedy.Core.Domain.Aggregates.Calendar;
 
 namespace Shedy.Core.Commands.CreateCalendar;
 
